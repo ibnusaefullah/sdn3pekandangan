@@ -15,7 +15,7 @@
         :root {
             /* Light Mode Defaults */
             --color-bg-body: #f8fafc; /* gray-50 */
-            --color-text-default: #374151; /* gray-800 */
+            --color-text-default: #1f2937; /* gray-800 */
             --color-text-secondary: #4b5563; /* gray-600 */
             --color-text-tertiary: #6b7280; /* gray-500 */
             --color-bg-white: #ffffff;
@@ -27,14 +27,18 @@
             --color-shadow-md: rgba(0, 0, 0, 0.1);
             --color-shadow-lg: rgba(0, 0, 0, 0.1);
             --color-shadow-xl: rgba(0, 0, 0, 0.1);
+            --color-overlay: rgba(0, 0, 0, 0.7);
 
             /* Tailwind-like colors for consistency */
             --tw-blue-600: #2563eb;
             --tw-blue-700: #1d4ed8;
+            --tw-green-500: #22c55e;
             --tw-green-600: #16a34a;
             --tw-green-700: #15803d;
+            --tw-yellow-500: #eab308;
             --tw-yellow-600: #ca8a04;
             --tw-yellow-700: #a16207;
+            --tw-red-500: #ef4444;
             --tw-red-600: #dc2626;
             --tw-red-700: #b91c1c;
             --tw-red-800: #991b1b;
@@ -57,14 +61,18 @@
             --color-shadow-md: rgba(0, 0, 0, 0.5);
             --color-shadow-lg: rgba(0, 0, 0, 0.6);
             --color-shadow-xl: rgba(0, 0, 0, 0.7);
+            --color-overlay: rgba(0, 0, 0, 0.85);
 
             /* Tailwind-like colors for consistency in dark mode */
             --tw-blue-600: #3182ce; /* Lighter blue for dark mode primary buttons */
             --tw-blue-700: #2b6cb0;
+            --tw-green-500: #34d399; /* Adjust green for visibility */
             --tw-green-600: #38a169;
             --tw-green-700: #2f855a;
+            --tw-yellow-500: #facc15;
             --tw-yellow-600: #d69e2e;
             --tw-yellow-700: #b7791f;
+            --tw-red-500: #f87171;
             --tw-red-600: #e53e3e;
             --tw-red-700: #c53030;
             --tw-red-800: #a50f0f;
@@ -80,8 +88,10 @@
         }
         .modal {
             transition: opacity 0.25s ease;
+            background-color: var(--color-overlay); /* Use overlay variable */
         }
         .modal-content {
+            background-color: var(--color-bg-white); /* Use white background for modal content */
             transition: transform 0.25s ease;
         }
         #admin-panel,
@@ -90,6 +100,7 @@
         }
         .prose {
             max-width: 100%;
+            color: var(--color-text-secondary); /* Ensure prose text adapts */
         }
         .hero-text-shadow {
             text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
@@ -99,24 +110,41 @@
             cursor: pointer;
             border-bottom: 3px solid transparent;
             transition: all 0.3s ease;
+            color: var(--color-text-secondary);
         }
         .admin-tab.active-tab, .anggota-tab.active-tab {
             border-color: var(--tw-blue-600); 
             color: var(--tw-blue-600);
             font-weight: 600;
         }
+        /* Floating Notification Pop-up */
         #notification-container {
             position: fixed;
-            top: 1.25rem;
-            right: 1.25rem;
+            bottom: 1.25rem; /* 20px from bottom */
+            right: 1.25rem; /* 20px from right */
             z-index: 1000;
             display: flex;
             flex-direction: column;
-            gap: 0.75rem;
+            gap: 0.75rem; /* 12px gap */
         }
         .notification {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start; /* Align content to start */
+            padding: 0.75rem 1rem; /* 12px vertical, 16px horizontal */
+            border-radius: 0.5rem; /* 8px rounded */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Stronger shadow for floating effect */
+            color: #ffffff; /* White text on colored background */
+            font-weight: 600; /* semibold */
             transform: translateX(120%);
             animation: slideIn 0.5s forwards;
+            min-width: 200px; /* Minimum width for the notification */
+            max-width: 300px; /* Maximum width to prevent stretching */
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .notification i {
+            margin-right: 0.75rem; /* 12px space between icon and text */
+            font-size: 1.25rem; /* 20px icon size */
         }
         @keyframes slideIn {
             to {
@@ -160,7 +188,7 @@
         }
         
         section:not(#beranda) {
-            background-color: var(--color-bg-white); /* Use variable */
+            background-color: var(--color-bg-body); /* Using body background for sections */
         }
         .bg-white {
             background-color: var(--color-bg-white);
@@ -178,6 +206,9 @@
             color: var(--color-text-default);
         }
         .text-gray-600 {
+            color: var(--color-text-secondary);
+        }
+        .text-gray-700 {
             color: var(--color-text-secondary);
         }
         .text-gray-500 {
@@ -226,13 +257,13 @@
             color: var(--tw-green-600);
         }
         .bg-yellow-100 {
-            background-color: var(--color-bg-light-yellow); /* Define this if used, or use a base color */
+            background-color: var(--tw-yellow-100, #fffbe0); /* Adjust if needed */
             color: var(--tw-yellow-600);
         }
         .bg-yellow-200 { /* For the "Segera Hadir" badge in Fasilitas */
-             background-color: var(--tw-yellow-100, #fef3c7);
+             background-color: var(--tw-yellow-200, #fef3c7);
         }
-        .bg-yellow-800 { /* For the "Segera Hadir" badge text in Fasilitas */
+        .text-yellow-800 { /* For the "Segera Hadir" badge text in Fasilitas */
             color: var(--tw-yellow-800, #92400e);
         }
 
@@ -248,11 +279,17 @@
         .hover\:bg-yellow-700:hover {
             background-color: var(--tw-yellow-700);
         }
+        .bg-green-500 { /* Specific for success notification */
+            background-color: var(--tw-green-500);
+        }
         .bg-green-600 {
             background-color: var(--tw-green-600);
         }
         .hover\:bg-green-700:hover {
             background-color: var(--tw-green-700);
+        }
+        .bg-red-500 { /* Specific for error notification */
+            background-color: var(--tw-red-500);
         }
         .bg-red-600 {
             background-color: var(--tw-red-600);
@@ -272,14 +309,14 @@
         .hover\:bg-purple-700:hover {
             background-color: var(--tw-purple-700);
         }
-        .bg-gray-200 {
+        .bg-gray-200 { /* For theme toggle button in light mode */
             background-color: var(--color-bg-gray-panel);
         }
         .bg-gray-300 {
             background-color: var(--color-border-default);
         }
         .hover\:bg-gray-300:hover {
-            background-color: var(--color-border-default); /* Can adjust this if a slightly darker gray is needed on hover */
+            background-color: var(--color-border-default);
         }
         .bg-gray-500 {
             background-color: #6b7280; /* Direct color for specific gray button */
@@ -287,21 +324,6 @@
         .hover\:bg-gray-600:hover {
             background-color: #4b5563; /* Direct color for specific gray button hover */
         }
-        .bg-black\/70 {
-            background-color: rgba(0, 0, 0, 0.7); /* Modal overlay */
-        }
-        /* Adjusted for dark mode modal overlay */
-        html.dark .bg-black\/70 {
-            background-color: rgba(0, 0, 0, 0.85);
-        }
-        .bg-white\/80 {
-            background-color: rgba(255, 255, 255, 0.8); /* Header background */
-        }
-        /* Adjusted for dark mode header background */
-        html.dark .bg-white\/80 {
-            background-color: rgba(45, 55, 72, 0.8);
-        }
-
         /* Specific styles for theme toggle button */
         #theme-toggle, #mobile-theme-toggle {
             background-color: var(--color-bg-gray-panel);
@@ -1319,7 +1341,7 @@
             document.getElementById('login-form').addEventListener('submit', handleLogin);
             document.getElementById('forgot-password-form').addEventListener('submit', handleForgotPasswordRequest);
             
-            // NEW: SPMB Form Submission to capture data locally
+            // SPMB Form Submission to capture data locally
             document.getElementById('spmb-form').addEventListener('submit', e => {
                 if (!e.target.checkValidity()) return;
                 const formData = new FormData(e.target);
@@ -1346,13 +1368,13 @@
             document.getElementById('siswa-form').addEventListener('submit', handleSiswaSubmit);
             document.getElementById('cancel-edit-siswa-btn').addEventListener('click', () => closeModalById('edit-siswa-modal'));
 
-            // NEW: Event listener for SPMB result check form
+            // Event listener for SPMB result check form
             document.getElementById('spmb-check-form').addEventListener('submit', checkSpmbResult);
 
-            // NEW: Event listeners for SPMB Admin Management
+            // Event listeners for SPMB Admin Management
             document.getElementById('add-spmb-result-form').addEventListener('submit', handleAddSpmbResult);
 
-            // NEW: Theme Toggle Event Listeners
+            // Theme Toggle Event Listeners
             document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
             document.getElementById('mobile-theme-toggle').addEventListener('click', toggleTheme);
         }
@@ -1712,7 +1734,7 @@
             profil.visi = document.getElementById('edit-visi').value;
             profil.misi = document.getElementById('edit-misi').value.split('\n').filter(line => line.trim() !== '');
             renderWebsiteContent();
-            showSuccessMessage('Perubahan profil berhasil disimpan');
+            showNotification('Perubahan profil berhasil disimpan!', 'success');
         }
 
         function handleKontakUpdate(e) {
@@ -1723,7 +1745,7 @@
             kontak.email = document.getElementById('edit-kontak-email').value;
             kontak.jam = document.getElementById('edit-kontak-jam').value;
             renderWebsiteContent();
-            showSuccessMessage('Perubahan kontak berhasil disimpan');
+            showNotification('Perubahan kontak berhasil disimpan!', 'success');
         }
         
         function handleSpmbUpdate(e) {
@@ -1737,7 +1759,7 @@
             websiteContent.spmb.syaratUmum = document.getElementById('edit-spmb-syarat-umum').value.split('\n').filter(Boolean);
             websiteContent.spmb.berkas = document.getElementById('edit-spmb-berkas').value.split('\n').filter(Boolean);
             renderSPMB();
-            showSuccessMessage('Informasi SPMB berhasil diperbarui');
+            showNotification('Informasi SPMB berhasil diperbarui!', 'success');
         }
         
         function handleFasilitasSubmit(e) {
@@ -1759,7 +1781,7 @@
             renderFasilitas();
             renderFasilitasAdminTable();
             resetFasilitasForm();
-            showSuccessMessage('Fasilitas berhasil disimpan.');
+            showNotification('Fasilitas berhasil disimpan.', 'success');
         }
 
         function handlePrestasiSubmit(e) {
@@ -1780,7 +1802,7 @@
             renderPrestasi();
             renderPrestasiAdminTable();
             resetPrestasiForm();
-            showSuccessMessage('Prestasi berhasil disimpan.');
+            showNotification('Prestasi berhasil disimpan.', 'success');
         }
 
         function handleGaleriSubmit(e) {
@@ -1800,7 +1822,7 @@
             renderGaleri();
             renderGaleriAdminTable();
             resetGaleriForm();
-            showSuccessMessage('Gambar galeri berhasil disimpan.');
+            showNotification('Gambar galeri berhasil disimpan.', 'success');
         }
         
         function editFasilitas(id) {
@@ -1924,7 +1946,7 @@
 
             const userExists = websiteContent.users.some(user => user.username === username);
             if (userExists) {
-                showSuccessMessage('Username sudah ada. Silakan pilih username lain.', 'error');
+                showNotification('Username sudah ada. Silakan pilih username lain.', 'error');
                 return;
             }
 
@@ -1933,7 +1955,7 @@
             renderStrukturOrganisasi();
             renderStrukturAdminPreview();
             document.getElementById('add-user-form').reset();
-            showSuccessMessage('Pengguna baru berhasil ditambahkan!');
+            showNotification('Pengguna baru berhasil ditambahkan!', 'success');
         }
 
         function togglePasswordVisibility(username, btn) {
@@ -1999,7 +2021,7 @@
             const userIndex = websiteContent.users.findIndex(user => user.username === username);
             if (userIndex !== -1) {
                 websiteContent.users[userIndex].role = newRole;
-                showSuccessMessage(`Status pengguna ${username} berhasil diubah menjadi ${newRole}.`);
+                showNotification(`Status pengguna ${username} berhasil diubah menjadi ${newRole}.`, 'success');
                 if (currentUser.username === username) {
                     currentUser.isAdmin = (newRole === 'admin');
                     updateUserStatus();
@@ -2048,7 +2070,7 @@
 
             const isUsernameTaken = websiteContent.users.some(u => u.username === newUsername && u.username !== originalUsername);
             if(isUsernameTaken) {
-                showSuccessMessage('Username sudah digunakan. Silakan pilih yang lain.', 'error');
+                showNotification('Username sudah digunakan. Silakan pilih yang lain.', 'error');
                 return;
             }
 
@@ -2066,7 +2088,7 @@
                 updateUserStatus();
             }
             
-            showSuccessMessage('Data pengguna berhasil diperbarui!');
+            showNotification('Data pengguna berhasil diperbarui!', 'success');
             closeModalById('edit-user-modal');
             renderUserManagementTable();
             renderStrukturOrganisasi();
@@ -2087,7 +2109,7 @@
             const initialLength = websiteContent.users.length;
             websiteContent.users = websiteContent.users.filter(user => user.username !== username);
             if (websiteContent.users.length < initialLength) {
-                showSuccessMessage(`Pengguna ${username} berhasil dihapus.`);
+                showNotification(`Pengguna ${username} berhasil dihapus.`, 'success');
                 renderUserManagementTable();
                 renderStrukturOrganisasi();
                 renderStrukturAdminPreview();
@@ -2095,7 +2117,7 @@
                     logout();
                 }
             } else {
-                showSuccessMessage('Gagal menghapus pengguna. Pengguna tidak ditemukan.', 'error');
+                showNotification('Gagal menghapus pengguna. Pengguna tidak ditemukan.', 'error');
             }
         }
         
@@ -2111,11 +2133,11 @@
                     websiteContent.pesertaDidik[index].nama = nama;
                     websiteContent.pesertaDidik[index].kelas = kelas;
                 }
-                   showSuccessMessage('Data siswa berhasil diperbarui!');
+                   showNotification('Data siswa berhasil diperbarui!', 'success');
             } else {
                 const newId = Date.now();
                 websiteContent.pesertaDidik.push({ id: newId, nama, kelas });
-                showSuccessMessage('Siswa baru berhasil ditambahkan!');
+                showNotification('Siswa baru berhasil ditambahkan!', 'success');
             }
             renderSiswaManagementTable();
             renderAnggotaSiswaTable();
@@ -2162,7 +2184,7 @@
             websiteContent.pesertaDidik = websiteContent.pesertaDidik.filter(s => s.id !== id);
             renderSiswaManagementTable();
             renderAnggotaSiswaTable();
-            showSuccessMessage('Data siswa berhasil dihapus.');
+            showNotification('Data siswa berhasil dihapus.', 'success');
         }
 
         function renderSiswaManagementTable() {
@@ -2289,7 +2311,7 @@
             renderSiswaManagementTable();
             renderAnggotaSiswaTable();
             renderLulusanTable();
-            showSuccessMessage('Proses kenaikan kelas dan kelulusan berhasil diselesaikan.');
+            showNotification('Proses kenaikan kelas dan kelulusan berhasil diselesaikan.', 'success');
         }
         
         function confirmSiswaAction(id, action) {
@@ -2309,7 +2331,7 @@
                 message = `Tetapkan <b>${siswa.nama}</b> untuk tinggal di kelas ${siswa.kelas}?`;
                 yesText = 'Ya, Tetapkan';
                 yesClass = 'bg-yellow-500 hover:bg-yellow-600';
-                onConfirm = () => showSuccessMessage(`${siswa.nama} tetap di kelas ${siswa.kelas}.`);
+                onConfirm = () => showNotification(`${siswa.nama} tetap di kelas ${siswa.kelas}.`, 'success');
             }
 
             openConfirmationModal({ title, message, yesText, yesClass, onConfirm });
@@ -2325,10 +2347,10 @@
             if (siswa.kelas === 6) {
                 websiteContent.lulusan.push({ ...siswa, tahunLulus: new Date().getFullYear() });
                 websiteContent.pesertaDidik.splice(siswaIndex, 1);
-                showSuccessMessage(`${siswa.nama} berhasil diluluskan.`);
+                showNotification(`${siswa.nama} berhasil diluluskan.`, 'success');
             } else {
                 siswa.kelas += 1;
-                showSuccessMessage(`${siswa.nama} berhasil dinaikkan ke kelas ${siswa.kelas}.`);
+                showNotification(`${siswa.nama} berhasil dinaikkan ke kelas ${siswa.kelas}.`, 'success');
             }
             
             renderSiswaManagementTable();
@@ -2350,7 +2372,7 @@
             websiteContent.pesertaDidik = [];
             renderSiswaManagementTable();
             renderAnggotaSiswaTable();
-            showSuccessMessage('Semua data peserta didik berhasil dihapus.');
+            showNotification('Semua data peserta didik berhasil dihapus.', 'success');
         }
 
         function exportSiswaToCSV() {
@@ -2367,7 +2389,7 @@
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-            showSuccessMessage("Data berhasil diekspor!");
+            showNotification("Data berhasil diekspor!", 'success');
         }
 
         function handleImportSiswa(event) {
@@ -2382,7 +2404,7 @@
                 const rows = text.split('\n').filter(row => row.trim() !== '');
                 
                 if (rows.length <= 1) {
-                    showSuccessMessage('File CSV kosong atau hanya berisi header.', 'error');
+                    showNotification('File CSV kosong atau hanya berisi header.', 'error');
                     return;
                 }
 
@@ -2413,17 +2435,17 @@
                             websiteContent.pesertaDidik = newSiswaList;
                             renderSiswaManagementTable();
                             renderAnggotaSiswaTable();
-                            showSuccessMessage(`${newSiswaList.length} data siswa berhasil diimpor.`);
+                            showNotification(`${newSiswaList.length} data siswa berhasil diimpor.`, 'success');
                         }
                     });
 
                 } else {
-                    showSuccessMessage('Tidak ada data valid yang ditemukan dalam file CSV.', 'error');
+                    showNotification('Tidak ada data valid yang ditemukan dalam file CSV.', 'error');
                 }
             };
             
             reader.onerror = function() {
-                showSuccessMessage('Gagal membaca file.', 'error');
+                showNotification('Gagal membaca file.', 'error');
             };
 
             reader.readAsText(file);
@@ -2440,7 +2462,7 @@
                 const rows = text.split('\n').filter(row => row.trim() !== '');
 
                 if (rows.length <= 1) {
-                    showSuccessMessage('File CSV kosong atau hanya berisi header.', 'error');
+                    showNotification('File CSV kosong atau hanya berisi header.', 'error');
                     return;
                 }
 
@@ -2479,14 +2501,14 @@
                     if (skippedCount > 0) {
                         message += ` ${skippedCount} pengguna dilewati karena username sudah ada.`;
                     }
-                    showSuccessMessage(message);
+                    showNotification(message, 'success');
                 } else {
-                    showSuccessMessage('Tidak ada pengguna baru yang ditambahkan. Mungkin semua username sudah ada.', 'error');
+                    showNotification('Tidak ada pengguna baru yang ditambahkan. Mungkin semua username sudah ada.', 'error');
                 }
             };
 
             reader.onerror = function() {
-                showSuccessMessage('Gagal membaca file.', 'error');
+                showNotification('Gagal membaca file.', 'error');
             };
 
             reader.readAsText(file);
@@ -2515,20 +2537,25 @@
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-            showSuccessMessage("Data pengguna berhasil diekspor!");
+            showNotification("Data pengguna berhasil diekspor!", 'success');
         }
 
-        function showSuccessMessage(message, type = 'success') {
+        function showNotification(message, type = 'success') {
             const container = document.getElementById('notification-container');
             const notif = document.createElement('div');
-            const bgColor = type === 'success' ? 'bg-green-500' : 'bg-red-500';
-            const icon = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-triangle';
-            notif.className = `notification ${bgColor} text-white font-bold py-2 px-4 rounded-lg shadow-lg flex items-center gap-3`;
-            notif.innerHTML = `<i class="fas ${icon}"></i><span>${message}</span>`;
+            const bgColor = type === 'success' ? 'var(--tw-green-500)' : 'var(--tw-red-500)';
+            const iconClass = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-triangle';
+            
+            notif.className = `notification text-white`; // Base classes
+            notif.style.backgroundColor = bgColor; // Apply background color via style for variable use
+
+            notif.innerHTML = `<i class="fas ${iconClass}"></i><span>${message}</span>`;
             container.appendChild(notif);
+            
+            // Auto-remove notification after 3 seconds
             setTimeout(() => {
                 notif.style.animation = 'slideOut 0.5s forwards';
-                setTimeout(() => notif.remove(), 500);
+                setTimeout(() => notif.remove(), 500); // Remove from DOM after animation
             }, 3000);
         }
 
@@ -2550,7 +2577,7 @@
             }
             renderPosts();
             resetPostForm();
-            showSuccessMessage('Berita berhasil disimpan');
+            showNotification('Berita berhasil disimpan', 'success');
         }
 
         function resetPostForm() {
@@ -2586,7 +2613,7 @@
                     onConfirm = () => {
                         posts = posts.filter(p => p.id !== id);
                         renderPosts();
-                        showSuccessMessage('Berita telah dihapus');
+                        showNotification('Berita telah dihapus', 'success');
                     };
                     break;
                 case 'fasilitas':
@@ -2596,7 +2623,7 @@
                         websiteContent.fasilitas = websiteContent.fasilitas.filter(f => f.id !== id);
                         renderFasilitas();
                         renderFasilitasAdminTable();
-                        showSuccessMessage('Fasilitas telah dihapus');
+                        showNotification('Fasilitas telah dihapus', 'success');
                     };
                     break;
                 case 'prestasi':
@@ -2606,7 +2633,7 @@
                         websiteContent.prestasi = websiteContent.prestasi.filter(p => p.id !== id);
                         renderPrestasi();
                         renderPrestasiAdminTable();
-                        showSuccessMessage('Prestasi telah dihapus');
+                        showNotification('Prestasi telah dihapus', 'success');
                     };
                     break;
                 case 'galeri':
@@ -2616,7 +2643,7 @@
                         websiteContent.galeri = websiteContent.galeri.filter(g => g.id !== id);
                         renderGaleri();
                         renderGaleriAdminTable();
-                        showSuccessMessage('Gambar telah dihapus');
+                        showNotification('Gambar telah dihapus', 'success');
                     };
                     break;
                 case 'spmbResult': // NEW CASE FOR SPMB RESULTS
@@ -2625,7 +2652,7 @@
                     onConfirm = () => {
                         websiteContent.spmbResults = websiteContent.spmbResults.filter(r => r.id !== id);
                         renderSpmbResultsTable();
-                        showSuccessMessage('Hasil pengumuman SPMB telah dihapus');
+                        showNotification('Hasil pengumuman SPMB telah dihapus', 'success');
                     };
                     break;
                  case 'spmbApplication': // NEW CASE FOR SPMB Applications
@@ -2634,7 +2661,7 @@
                     onConfirm = () => {
                         websiteContent.spmbApplications = websiteContent.spmbApplications.filter(app => app.id !== id);
                         renderSpmbApplications();
-                        showSuccessMessage('Data pendaftar online telah dihapus');
+                        showNotification('Data pendaftar online telah dihapus', 'success');
                     };
                     break;
             }
@@ -2819,7 +2846,7 @@
             const newPassword = newPasswordInput ? newPasswordInput.value : '';
 
             if (!newPassword) {
-                showSuccessMessage('Silakan masukkan password baru untuk reset.', 'error');
+                showNotification('Silakan masukkan password baru untuk reset.', 'error');
                 return;
             }
             const userToReset = websiteContent.users.find(u => u.username === usernameToReset);
@@ -2830,9 +2857,9 @@
                 renderPasswordResets();
                 renderUserManagementTable();
                 updateResetNotification();
-                showSuccessMessage(`Password untuk ${usernameToReset} berhasil direset.`);
+                showNotification(`Password untuk ${usernameToReset} berhasil direset.`, 'success');
             } else {
-                showSuccessMessage('Gagal mereset password. Pengguna tidak ditemukan.', 'error');
+                showNotification('Gagal mereset password. Pengguna tidak ditemukan.', 'error');
             }
         }
 
@@ -2990,13 +3017,13 @@
             const status = document.getElementById('new-spmb-status').value;
 
             if (!nama || !nomorPendaftaran || !status) {
-                showSuccessMessage('Semua field harus diisi untuk menambah hasil.', 'error');
+                showNotification('Semua field harus diisi untuk menambah hasil.', 'error');
                 return;
             }
 
             const existingResult = websiteContent.spmbResults.find(r => r.registrationNumber === nomorPendaftaran);
             if (existingResult) {
-                showSuccessMessage('Nomor pendaftaran ini sudah ada.', 'error');
+                showNotification('Nomor pendaftaran ini sudah ada.', 'error');
                 return;
             }
             
@@ -3005,7 +3032,7 @@
             
             document.getElementById('add-spmb-result-form').reset();
             renderSpmbResultsTable();
-            showSuccessMessage('Hasil pengumuman SPMB berhasil ditambahkan.');
+            showNotification('Hasil pengumuman SPMB berhasil ditambahkan.', 'success');
         }
 
         function editSpmbResult(id) {
@@ -3043,7 +3070,7 @@
                     // Check for duplicate registration number in spmbResults, excluding the current item being edited
                     const isDuplicateRegNumber = websiteContent.spmbResults.some(r => r.registrationNumber === newRegNumber && r.id !== id);
                     if (isDuplicateRegNumber) {
-                        showSuccessMessage(`Nomor pendaftaran "${newRegNumber}" sudah ada di daftar pengumuman.`, 'error');
+                        showNotification(`Nomor pendaftaran "${newRegNumber}" sudah ada di daftar pengumuman.`, 'error');
                         return;
                     }
 
@@ -3053,7 +3080,7 @@
                         targetResult.registrationNumber = newRegNumber;
                         targetResult.status = newStatus;
                         renderSpmbResultsTable();
-                        showSuccessMessage('Hasil SPMB berhasil diperbarui.');
+                        showNotification('Hasil SPMB berhasil diperbarui.', 'success');
                     }
                 }
             });
@@ -3123,14 +3150,14 @@
                     const status = document.getElementById('process-spmb-status').value;
 
                     if (!regNumber || !status) {
-                        showSuccessMessage('Nomor pendaftaran dan status harus diisi.', 'error');
+                        showNotification('Nomor pendaftaran dan status harus diisi.', 'error');
                         return;
                     }
 
                     // Check for duplicate registration number in spmbResults
                     const isDuplicateRegNumber = websiteContent.spmbResults.some(r => r.registrationNumber === regNumber);
                     if (isDuplicateRegNumber) {
-                        showSuccessMessage(`Nomor pendaftaran "${regNumber}" sudah ada di daftar pengumuman.`, 'error');
+                        showNotification(`Nomor pendaftaran "${regNumber}" sudah ada di daftar pengumuman.`, 'error');
                         return;
                     }
 
@@ -3146,12 +3173,12 @@
 
                     renderSpmbResultsTable();
                     renderSpmbApplications();
-                    showSuccessMessage(`Pendaftaran ${app.nama} berhasil diproses sebagai ${status} dengan Nomor: ${regNumber}.`);
+                    showNotification(`Pendaftaran ${app.nama} berhasil diproses sebagai ${status} dengan Nomor: ${regNumber}.`, 'success');
                 }
             });
         }
 
-        // --- NEW/UPDATED THEME TOGGLE FUNCTIONS ---
+        // --- UPDATED THEME TOGGLE FUNCTIONS ---
 
         function applyTheme(theme) {
             const html = document.documentElement; // Target the html element
@@ -3164,11 +3191,15 @@
                 if (themeToggleIcon) themeToggleIcon.classList.replace('fa-moon', 'fa-sun');
                 if (mobileThemeToggleIcon) mobileThemeToggleIcon.classList.replace('fa-moon', 'fa-sun');
                 if (themeToggleText) themeToggleText.textContent = 'Mode Terang';
+                document.querySelector('#theme-toggle').classList.add('dark-mode-button');
+                document.querySelector('#mobile-theme-toggle').classList.add('dark-mode-button');
             } else {
                 html.classList.remove('dark');
                 if (themeToggleIcon) themeToggleIcon.classList.replace('fa-sun', 'fa-moon');
                 if (mobileThemeToggleIcon) mobileThemeToggleIcon.classList.replace('fa-sun', 'fa-moon');
                 if (themeToggleText) themeToggleText.textContent = 'Mode Gelap';
+                document.querySelector('#theme-toggle').classList.remove('dark-mode-button');
+                document.querySelector('#mobile-theme-toggle').classList.remove('dark-mode-button');
             }
         }
 

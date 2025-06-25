@@ -11,87 +11,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        /* CSS Variables for easier theme management */
-        :root {
-            /* Light Mode Defaults */
-            --color-bg-body: #f8fafc; /* gray-50 */
-            --color-text-default: #1f2937; /* gray-800 */
-            --color-text-secondary: #4b5563; /* gray-600 */
-            --color-text-tertiary: #6b7280; /* gray-500 */
-            --color-bg-white: #ffffff;
-            --color-bg-gray-panel: #e5e7eb; /* gray-200 */
-            --color-bg-light-blue: #eff6ff; /* blue-50 */
-            --color-bg-light-green: #ecfdf5; /* green-50 */
-            --color-border-default: #d1d5db; /* gray-300 */
-            --color-shadow-base: rgba(0, 0, 0, 0.1);
-            --color-shadow-md: rgba(0, 0, 0, 0.1);
-            --color-shadow-lg: rgba(0, 0, 0, 0.1);
-            --color-shadow-xl: rgba(0, 0, 0, 0.1);
-            --color-overlay: rgba(0, 0, 0, 0.7);
-
-            /* Tailwind-like colors for consistency */
-            --tw-blue-600: #2563eb;
-            --tw-blue-700: #1d4ed8;
-            --tw-green-500: #22c55e;
-            --tw-green-600: #16a34a;
-            --tw-green-700: #15803d;
-            --tw-yellow-500: #eab308;
-            --tw-yellow-600: #ca8a04;
-            --tw-yellow-700: #a16207;
-            --tw-red-500: #ef4444;
-            --tw-red-600: #dc2626;
-            --tw-red-700: #b91c1c;
-            --tw-red-800: #991b1b;
-            --tw-purple-600: #9333ea;
-            --tw-purple-700: #7e22ce;
-        }
-
-        html.dark {
-            /* Dark Mode Overrides */
-            --color-bg-body: #1a202c; /* dark gray */
-            --color-text-default: #e2e8f0; /* light gray */
-            --color-text-secondary: #a0aec0; /* lighter gray for subtext */
-            --color-text-tertiary: #718096; /* even lighter gray */
-            --color-bg-white: #2d3748; /* darker gray for "white" elements */
-            --color-bg-gray-panel: #1a202c; /* Consistent dark background for panels */
-            --color-bg-light-blue: #2c5282; /* dark blue */
-            --color-bg-light-green: #2f855a; /* dark green */
-            --color-border-default: #4a5568; /* dark border */
-            --color-shadow-base: rgba(0, 0, 0, 0.4);
-            --color-shadow-md: rgba(0, 0, 0, 0.5);
-            --color-shadow-lg: rgba(0, 0, 0, 0.6);
-            --color-shadow-xl: rgba(0, 0, 0, 0.7);
-            --color-overlay: rgba(0, 0, 0, 0.85);
-
-            /* Tailwind-like colors for consistency in dark mode */
-            --tw-blue-600: #3182ce; /* Lighter blue for dark mode primary buttons */
-            --tw-blue-700: #2b6cb0;
-            --tw-green-500: #34d399; /* Adjust green for visibility */
-            --tw-green-600: #38a169;
-            --tw-green-700: #2f855a;
-            --tw-yellow-500: #facc15;
-            --tw-yellow-600: #d69e2e;
-            --tw-yellow-700: #b7791f;
-            --tw-red-500: #f87171;
-            --tw-red-600: #e53e3e;
-            --tw-red-700: #c53030;
-            --tw-red-800: #a50f0f;
-            --tw-purple-600: #805ad5;
-            --tw-purple-700: #6b46c1;
-        }
-
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--color-bg-body);
-            color: var(--color-text-default);
-            transition: background-color 0.3s ease, color 0.3s ease;
         }
         .modal {
             transition: opacity 0.25s ease;
-            background-color: var(--color-overlay); /* Use overlay variable */
         }
         .modal-content {
-            background-color: var(--color-bg-white); /* Use white background for modal content */
             transition: transform 0.25s ease;
         }
         #admin-panel,
@@ -100,7 +26,6 @@
         }
         .prose {
             max-width: 100%;
-            color: var(--color-text-secondary); /* Ensure prose text adapts */
         }
         .hero-text-shadow {
             text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
@@ -110,41 +35,24 @@
             cursor: pointer;
             border-bottom: 3px solid transparent;
             transition: all 0.3s ease;
-            color: var(--color-text-secondary);
         }
         .admin-tab.active-tab, .anggota-tab.active-tab {
-            border-color: var(--tw-blue-600); 
-            color: var(--tw-blue-600);
+            border-color: #3B82F6;
+            color: #2563EB;
             font-weight: 600;
         }
-        /* Floating Notification Pop-up */
         #notification-container {
             position: fixed;
-            bottom: 1.25rem; /* 20px from bottom */
-            right: 1.25rem; /* 20px from right */
+            top: 1.25rem;
+            right: 1.25rem;
             z-index: 1000;
             display: flex;
             flex-direction: column;
-            gap: 0.75rem; /* 12px gap */
+            gap: 0.75rem;
         }
         .notification {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start; /* Align content to start */
-            padding: 0.75rem 1rem; /* 12px vertical, 16px horizontal */
-            border-radius: 0.5rem; /* 8px rounded */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Stronger shadow for floating effect */
-            color: #ffffff; /* White text on colored background */
-            font-weight: 600; /* semibold */
             transform: translateX(120%);
             animation: slideIn 0.5s forwards;
-            min-width: 200px; /* Minimum width for the notification */
-            max-width: 300px; /* Maximum width to prevent stretching */
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-        .notification i {
-            margin-right: 0.75rem; /* 12px space between icon and text */
-            font-size: 1.25rem; /* 20px icon size */
         }
         @keyframes slideIn {
             to {
@@ -161,178 +69,6 @@
                 opacity: 0;
             }
         }
-
-        /* Applying custom properties */
-        #header {
-            background-color: var(--color-bg-white); /* Use variable */
-            box-shadow: 0 1px 3px var(--color-shadow-base), 0 1px 2px var(--color-shadow-md);
-        }
-        #header a {
-            color: var(--color-text-secondary);
-        }
-        #header a:hover {
-            color: var(--tw-blue-600);
-        }
-        #header .font-bold {
-            color: var(--color-text-default);
-        }
-        #mobile-menu {
-            background-color: var(--color-bg-white);
-            border-color: var(--color-border-default);
-        }
-        #mobile-menu a {
-            color: var(--color-text-secondary);
-        }
-        #mobile-menu a:hover {
-            background-color: var(--color-bg-light-blue);
-        }
-        
-        section:not(#beranda) {
-            background-color: var(--color-bg-body); /* Using body background for sections */
-        }
-        .bg-white {
-            background-color: var(--color-bg-white);
-        }
-        .bg-gray-50 {
-            background-color: var(--color-bg-body); /* Using body background for sections with gray-50 */
-        }
-        .bg-gray-100 {
-            background-color: var(--color-bg-body); /* Using body background for sections with gray-100 */
-        }
-        .bg-gray-200 {
-            background-color: var(--color-bg-gray-panel); /* Specific for admin panel background */
-        }
-        .text-gray-800 {
-            color: var(--color-text-default);
-        }
-        .text-gray-600 {
-            color: var(--color-text-secondary);
-        }
-        .text-gray-700 {
-            color: var(--color-text-secondary);
-        }
-        .text-gray-500 {
-            color: var(--color-text-tertiary);
-        }
-        .shadow-lg {
-            box-shadow: 0 10px 15px -3px var(--color-shadow-lg), 0 4px 6px -2px var(--color-shadow-md);
-        }
-        .shadow-xl {
-            box-shadow: 0 20px 25px -5px var(--color-shadow-xl), 0 8px 10px -6px var(--color-shadow-md);
-        }
-
-        .border, .border-b, .border-t {
-            border-color: var(--color-border-default);
-        }
-        input, textarea, select {
-            border-color: var(--color-border-default) !important;
-            background-color: var(--color-bg-white); /* Keep consistency for input fields */
-            color: var(--color-text-default);
-        }
-        input::placeholder, textarea::placeholder {
-            color: var(--color-text-secondary);
-        }
-        input:focus, textarea:focus, select:focus {
-            border-color: var(--tw-blue-600) !important;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.5); /* Tailwind blue-600 with opacity */
-        }
-        .bg-blue-50 {
-            background-color: var(--color-bg-light-blue);
-        }
-        .bg-green-50 {
-            background-color: var(--color-bg-light-green);
-        }
-        .text-blue-700 {
-            color: var(--tw-blue-700);
-        }
-        .text-green-700 {
-            color: var(--tw-green-700);
-        }
-        .bg-blue-100 {
-            background-color: var(--color-bg-light-blue);
-            color: var(--tw-blue-600);
-        }
-        .bg-green-100 {
-            background-color: var(--color-bg-light-green);
-            color: var(--tw-green-600);
-        }
-        .bg-yellow-100 {
-            background-color: var(--tw-yellow-100, #fffbe0); /* Adjust if needed */
-            color: var(--tw-yellow-600);
-        }
-        .bg-yellow-200 { /* For the "Segera Hadir" badge in Fasilitas */
-             background-color: var(--tw-yellow-200, #fef3c7);
-        }
-        .text-yellow-800 { /* For the "Segera Hadir" badge text in Fasilitas */
-            color: var(--tw-yellow-800, #92400e);
-        }
-
-        .bg-blue-600 {
-            background-color: var(--tw-blue-600);
-        }
-        .hover\:bg-blue-700:hover {
-            background-color: var(--tw-blue-700);
-        }
-        .bg-yellow-600 {
-            background-color: var(--tw-yellow-600);
-        }
-        .hover\:bg-yellow-700:hover {
-            background-color: var(--tw-yellow-700);
-        }
-        .bg-green-500 { /* Specific for success notification */
-            background-color: var(--tw-green-500);
-        }
-        .bg-green-600 {
-            background-color: var(--tw-green-600);
-        }
-        .hover\:bg-green-700:hover {
-            background-color: var(--tw-green-700);
-        }
-        .bg-red-500 { /* Specific for error notification */
-            background-color: var(--tw-red-500);
-        }
-        .bg-red-600 {
-            background-color: var(--tw-red-600);
-        }
-        .hover\:bg-red-700:hover {
-            background-color: var(--tw-red-700);
-        }
-        .bg-red-700 {
-            background-color: var(--tw-red-700);
-        }
-        .hover\:bg-red-800:hover {
-            background-color: var(--tw-red-800);
-        }
-        .bg-purple-600 {
-            background-color: var(--tw-purple-600);
-        }
-        .hover\:bg-purple-700:hover {
-            background-color: var(--tw-purple-700);
-        }
-        .bg-gray-200 { /* For theme toggle button in light mode */
-            background-color: var(--color-bg-gray-panel);
-        }
-        .bg-gray-300 {
-            background-color: var(--color-border-default);
-        }
-        .hover\:bg-gray-300:hover {
-            background-color: var(--color-border-default);
-        }
-        .bg-gray-500 {
-            background-color: #6b7280; /* Direct color for specific gray button */
-        }
-        .hover\:bg-gray-600:hover {
-            background-color: #4b5563; /* Direct color for specific gray button hover */
-        }
-        /* Specific styles for theme toggle button */
-        #theme-toggle, #mobile-theme-toggle {
-            background-color: var(--color-bg-gray-panel);
-            color: var(--color-text-default);
-        }
-        #theme-toggle:hover, #mobile-theme-toggle:hover {
-            background-color: var(--color-border-default);
-        }
-
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -359,16 +95,12 @@
                 <div id="admin-nav-link" class="hidden">
                     <a href="#admin-panel" class="font-bold text-red-600 hover:text-red-800 relative">
                         Panel Kontrol
-                        <span id="activity-notif-badge" class="hidden absolute -top-2 -right-3 h-5 w-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center"></span>
+                        <span id="admin-notif-badge" class="hidden absolute -top-2 -right-3 h-5 w-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center"></span>
                     </a>
                 </div>
                 <div id="anggota-nav-link" class="hidden">
                     <a href="#anggota-panel" class="font-bold text-green-600 hover:text-green-800">Panel Anggota</a>
                 </div>
-                <button id="theme-toggle" class="px-3 py-2 rounded-full transition-colors duration-300 flex items-center space-x-2 shadow-md">
-                    <i class="fas fa-moon" id="theme-toggle-icon"></i>
-                    <span class="hidden md:inline">Mode Gelap</span>
-                </button>
                 <div id="user-status">
                     <button id="login-button" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 shadow-md flex items-center space-x-2">
                         <i class="fas fa-sign-in-alt"></i>
@@ -376,10 +108,7 @@
                     </button>
                 </div>
             </div>
-            <div class="md:hidden flex items-center">
-                <button id="mobile-theme-toggle" class="px-3 py-2 rounded-full transition-colors duration-300 mr-2">
-                    <i class="fas fa-moon" id="mobile-theme-toggle-icon"></i>
-                </button>
+            <div class="md:hidden">
                 <button id="mobile-menu-button" class="text-gray-800 focus:outline-none"><i class="fas fa-bars fa-lg"></i></button>
             </div>
         </nav>
@@ -449,89 +178,183 @@
             </div>
         </section>
 
-        <section id="spmb" class="py-20 bg-gray-50">
-            <div class="container mx-auto px-6">
-                <div class="text-center">
-                    <h2 class="text-4xl font-bold mb-4">Sistem Penerimaan Murid Baru (SPMB) 2025/2026</h2>
-                    <p class="text-gray-600 max-w-3xl mx-auto mb-12">Informasi pendaftaran UPTD SDN 3 Pekandangan Tahun Ajaran 2025/2026.</p>
-                </div>
+<section id="spmb" class="py-20 bg-gradient-to-br from-blue-100 to-green-50">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-12">
+            <h2 class="text-5xl font-extrabold text-blue-800 mb-4 drop-shadow-md">Sistem Penerimaan Murid Baru (SPMB)</h2>
+            <p class="text-xl text-gray-700 max-w-4xl mx-auto">Selamat datang calon bintang! Temukan semua informasi yang Anda butuhkan untuk bergabung dengan keluarga besar UPTD SDN 3 PEKANDANGAN.</p>
+        </div>
 
-                <div id="spmb-content" class="max-w-7xl mx-auto grid lg:grid-cols-5 gap-12 mb-16">
-                </div>
-
-                <div class="text-center mb-12">
-                    <h3 class="text-3xl font-bold">Formulir Pendaftaran Online</h3>
-                    <p class="text-gray-600 max-w-3xl mx-auto mt-2">Daftarkan putra-putri Anda dengan mengisi formulir di bawah ini.</p>
-                </div>
-                <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden md:grid md:grid-cols-2">
-                    <div class="bg-blue-600 text-white p-8 md:p-12 flex flex-col justify-center">
-                        <h3 class="text-2xl font-bold mb-4">Langkah Mudah Mendaftar</h3>
-                        <p class="mb-6 opacity-90">Hanya perlu beberapa menit untuk mendaftar. Pastikan data yang Anda masukkan sudah benar.</p>
-                        <ul class="space-y-4">
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle mt-1 mr-3 text-xl"></i>
-                                <span>Isi formulir dengan data yang valid dan lengkap di samping.</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-clock mt-1 mr-3 text-xl"></i>
-                                <span>Tunggu konfirmasi dari pihak sekolah melalui nomor yang Anda daftarkan.</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-school mt-1 mr-3 text-xl"></i>
-                                <span>Lakukan proses daftar ulang di sekolah sesuai jadwal yang ditentukan.</span>
-                            </li>
-                        </ul>
+        <div id="spmb-content" class="max-w-7xl mx-auto grid lg:grid-cols-5 gap-12 mb-16">
+            <div class="lg:col-span-2 bg-white p-8 rounded-3xl shadow-xl border-l-8 border-blue-500 transform transition-all duration-300 hover:scale-105">
+                <h3 class="text-3xl font-bold mb-8 text-blue-700 flex items-center">
+                    <i class="fas fa-calendar-alt text-blue-500 mr-4"></i> Alur Waktu Pendaftaran
+                </h3>
+                <ul class="space-y-6">
+                    </ul>
+            </div>
+            <div class="lg:col-span-3 bg-white p-8 rounded-3xl shadow-xl border-l-8 border-green-500 transform transition-all duration-300 hover:scale-105">
+                <h3 class="text-3xl font-bold mb-8 text-green-700 flex items-center">
+                    <i class="fas fa-file-alt text-green-500 mr-4"></i> Syarat & Berkas Pendaftaran
+                </h3>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="font-bold text-xl mb-3 text-gray-700">Syarat Umum</h4>
+                        <ul class="list-disc list-inside space-y-2 text-gray-600 pl-4">
+                            </ul>
                     </div>
-                    <div class="p-8 md:p-12">
-                        <div id="spmb-message" class="mb-4"></div>
-                        <form id="spmb-form" name="spmb-form" method="post" action="https://script.google.com/macros/s/AKfycbxqNEGti2a0QJ0Fd_cPjAvqxjjn-qQXtkouMb_5WCnWEaX1Zlqa-BgIJ2haAYlaSrA4fg/exec" target="hidden-iframe">
-                            <div class="space-y-5">
-                                <div>
-                                    <label for="nama" class="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap Peserta Didik</label>
-                                    <input type="text" id="nama" name="nama" placeholder="Contoh: Ananda Putri" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
-                                </div>
-                                <div>
-                                    <label for="Tempat_Lahir" class="block text-sm font-medium text-gray-700 mb-1">Tempat Lahir</label>
-                                    <input type="text" id="Tempat_Lahir" name="Tempat_Lahir" placeholder="Contoh: Indramayu" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
-                                </div>
-                                <div>
-                                    <label for="tgl_lahir" class="block text-sm font-medium text-gray-700 mb-1">Tanggal Lahir</label>
-                                    <input type="date" id="tgl_lahir" name="tgl_lahir" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
-                                </div>
-                                <div>
-                                    <label for="alamat" class="block text-sm font-medium text-gray-700 mb-1">Alamat Lengkap</label>
-                                    <input type="text" id="alamat" name="alamat" placeholder="Jl. Pahlawan No. 123" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
-                                </div>
-                                <div>
-                                    <label for="no_hp" class="block text-sm font-medium text-gray-700 mb-1">Nomor HP Orang Tua (Aktif)</label>
-                                    <input type="tel" id="no_hp" name="no_hp" placeholder="Contoh: 081234567890" pattern="[0-9]{10,13}" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
-                                </div>
-                                <button type="submit" id="spmb-submit-button" class="w-full mt-2 flex items-center justify-center bg-blue-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors shadow-lg disabled:bg-blue-400">
-                                    <span class="btn-text">Kirim Data Pendaftaran</span>
-                                    <i class="fas fa-spinner fa-spin ml-2 hidden"></i>
-                                </button>
-                            </div>
-                        </form>
+                    <div>
+                        <h4 class="font-bold text-xl mb-3 text-gray-700">Berkas Administrasi</h4>
+                        <ul class="list-disc list-inside space-y-2 text-gray-600 pl-4">
+                            </ul>
                     </div>
                 </div>
-
-                <div class="mt-20 text-center">
-                    <h3 class="text-3xl font-bold mb-4">Pengumuman Hasil Seleksi SPMB</h3>
-                    <p class="text-gray-600 max-w-xl mx-auto mb-8">Masukkan Nomor Pendaftaran Anda untuk melihat status kelulusan.</p>
-                    <div class="max-w-md mx-auto bg-white rounded-xl shadow-xl p-8">
-                        <form id="spmb-check-form" class="space-y-4">
-                            <div>
-                                <label for="spmb-reg-number" class="block text-sm font-medium text-gray-700 mb-1">Nomor Pendaftaran</label>
-                                <input type="text" id="spmb-reg-number" placeholder="Contoh: SPMB2025001" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
-                            </div>
-                            <button type="submit" class="w-full bg-yellow-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-yellow-700 transition-colors shadow-lg">Cek Status</button>
-                        </form>
-                        <div id="spmb-result-display" class="mt-6 text-lg font-semibold">
-                            </div>
+                <div class="mt-8 pt-6 border-t-2 border-yellow-200">
+                    <h4 class="font-bold text-xl mb-3 text-gray-700">Jalur Penerimaan Prioritas</h4>
+                    <p class="text-md text-gray-600 mb-4">Sekolah memprioritaskan penerimaan melalui jalur berikut:</p>
+                    <div class="flex flex-wrap gap-4">
+                        <span class="bg-blue-200 text-blue-800 text-sm font-medium px-4 py-2 rounded-full shadow-sm flex items-center">
+                            <i class="fas fa-map-marker-alt mr-2"></i> Zonasi (min. 80%)
+                        </span>
+                        <span class="bg-green-200 text-green-800 text-sm font-medium px-4 py-2 rounded-full shadow-sm flex items-center">
+                            <i class="fas fa-hands-helping mr-2"></i> Afirmasi (min. 15%)
+                        </span>
+                        <span class="bg-yellow-200 text-yellow-800 text-sm font-medium px-4 py-2 rounded-full shadow-sm flex items-center">
+                            <i class="fas fa-exchange-alt mr-2"></i> Pindah Tugas (maks. 5%)
+                        </span>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+
+        <div class="text-center mb-12">
+            <h3 class="text-4xl font-bold text-purple-700 drop-shadow-sm">Formulir Pendaftaran Online</h3>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto mt-2">Daftarkan putra-putri Anda dengan mengisi formulir di bawah ini. Pastikan semua data lengkap dan benar!</p>
+        </div>
+        <div class="max-w-4xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden md:grid md:grid-cols-2 border-4 border-yellow-300">
+            <div class="bg-yellow-100 text-yellow-800 p-8 md:p-12 flex flex-col justify-center items-center text-center">
+                <i class="fas fa-lightbulb fa-4x mb-6 text-yellow-600 animate-pulse"></i>
+                <h3 class="text-2xl font-bold mb-4">Tips Mengisi Formulir</h3>
+                <p class="mb-6 opacity-90 text-sm leading-relaxed">
+                    Agar pendaftaran berjalan lancar, pastikan Anda menyiapkan semua dokumen yang diperlukan dan mengisi setiap kolom dengan data yang valid.
+                    Tim kami akan segera menghubungi Anda setelah data diverifikasi.
+                </p>
+                <ul class="space-y-3 text-left w-full max-w-xs">
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle mt-1 mr-3 text-xl text-yellow-600"></i>
+                        <span>Gunakan nama lengkap sesuai akta.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle mt-1 mr-3 text-xl text-yellow-600"></i>
+                        <span>Pastikan NISN dan tanggal lahir akurat.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle mt-1 mr-3 text-xl text-yellow-600"></i>
+                        <span>Cantumkan nomor HP aktif untuk konfirmasi.</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="p-8 md:p-12 bg-blue-50">
+                <div id="spmb-message" class="mb-4"></div>
+                <form id="spmb-form" name="spmb-form" method="post" action="https://script.google.com/macros/s/AKfycbxqNEGti2a0QJ0Fd_cPjAvqxjjn-qQXtkouMb_5WCnWEaX1Zlqa-BgIJ2haAYlaSrA4fg/exec" target="hidden-iframe">
+                    <div class="space-y-6">
+                        <h4 class="text-2xl font-bold text-blue-700 mb-4 border-b-2 border-blue-200 pb-2 flex items-center">
+                            <i class="fas fa-child text-blue-500 mr-3"></i> Data Siswa
+                        </h4>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="nama" class="block text-sm font-semibold text-gray-700 mb-1">Nama Lengkap Siswa <span class="text-red-500">*</span></label>
+                                <input type="text" id="nama" name="nama" placeholder="Contoh: Ananda Putri" required
+                                    class="w-full p-3 border border-blue-200 rounded-lg focus:ring-blue-400 focus:border-blue-400 transition text-gray-800">
+                            </div>
+                            <div>
+                                <label for="nisn" class="block text-sm font-semibold text-gray-700 mb-1">NISN <span class="text-red-500">*</span></label>
+                                <input type="text" id="nisn" name="nisn" placeholder="Contoh: 0012345678" required
+                                    class="w-full p-3 border border-blue-200 rounded-lg focus:ring-blue-400 focus:border-blue-400 transition text-gray-800">
+                            </div>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="jk" class="block text-sm font-semibold text-gray-700 mb-1">Jenis Kelamin <span class="text-red-500">*</span></label>
+                                <select id="jk" name="jk" required
+                                    class="w-full p-3 border border-blue-200 rounded-lg focus:ring-blue-400 focus:border-blue-400 transition bg-white text-gray-800">
+                                    <option value="">-- Pilih --</option>
+                                    <option value="Laki-laki">Laki-laki</option>
+                                    <option value="Perempuan">Perempuan</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="agama" class="block text-sm font-semibold text-gray-700 mb-1">Agama <span class="text-red-500">*</span></label>
+                                <select id="agama" name="agama" required
+                                    class="w-full p-3 border border-blue-200 rounded-lg focus:ring-blue-400 focus:border-blue-400 transition bg-white text-gray-800">
+                                    <option value="">-- Pilih --</option>
+                                    <option value="Islam">Islam</option>
+                                    <option value="Kristen">Kristen</option>
+                                    <option value="Katolik">Katolik</option>
+                                    <option value="Hindu">Hindu</option>
+                                    <option value="Buddha">Buddha</option>
+                                    <option value="Konghucu">Konghucu</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="Tempat_Lahir" class="block text-sm font-semibold text-gray-700 mb-1">Tempat Lahir <span class="text-red-500">*</span></label>
+                                <input type="text" id="Tempat_Lahir" name="Tempat_Lahir" placeholder="Contoh: Indramayu" required
+                                    class="w-full p-3 border border-blue-200 rounded-lg focus:ring-blue-400 focus:border-blue-400 transition text-gray-800">
+                            </div>
+                            <div>
+                                <label for="tgl_lahir" class="block text-sm font-semibold text-gray-700 mb-1">Tanggal Lahir <span class="text-red-500">*</span></label>
+                                <input type="date" id="tgl_lahir" name="tgl_lahir" required
+                                    class="w-full p-3 border border-blue-200 rounded-lg focus:ring-blue-400 focus:border-blue-400 transition text-gray-800">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="alamat" class="block text-sm font-semibold text-gray-700 mb-1">Alamat Lengkap <span class="text-red-500">*</span></label>
+                            <textarea id="alamat" name="alamat" rows="3" placeholder="Jl. Pahlawan No. 123, RT 01/RW 02, Desa Pekandangan" required
+                                class="w-full p-3 border border-blue-200 rounded-lg focus:ring-blue-400 focus:border-blue-400 transition text-gray-800"></textarea>
+                        </div>
+
+                        <h4 class="text-2xl font-bold text-green-700 mb-4 pt-4 border-t-2 border-green-200 pb-2 flex items-center">
+                            <i class="fas fa-users text-green-500 mr-3"></i> Data Orang Tua / Wali
+                        </h4>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="ayah" class="block text-sm font-semibold text-gray-700 mb-1">Nama Ayah <span class="text-red-500">*</span></label>
+                                <input type="text" id="ayah" name="ayah" placeholder="Nama Lengkap Ayah" required
+                                    class="w-full p-3 border border-green-200 rounded-lg focus:ring-green-400 focus:border-green-400 transition text-gray-800">
+                            </div>
+                            <div>
+                                <label for="ibu" class="block text-sm font-semibold text-gray-700 mb-1">Nama Ibu <span class="text-red-500">*</span></label>
+                                <input type="text" id="ibu" name="ibu" placeholder="Nama Lengkap Ibu" required
+                                    class="w-full p-3 border border-green-200 rounded-lg focus:ring-green-400 focus:border-green-400 transition text-gray-800">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="wali" class="block text-sm font-semibold text-gray-700 mb-1">Wali (jika ada)</label>
+                            <input type="text" id="wali" name="wali" placeholder="Nama Lengkap Wali (opsional)"
+                                class="w-full p-3 border border-green-200 rounded-lg focus:ring-green-400 focus:border-green-400 transition text-gray-800">
+                        </div>
+                        <div>
+                            <label for="nohp" class="block text-sm font-semibold text-gray-700 mb-1">No. HP Aktif Orang Tua/Wali <span class="text-red-500">*</span></label>
+                            <input type="tel" id="nohp" name="nohp" placeholder="Contoh: 081234567890" pattern="[0-9]{10,15}" required
+                                class="w-full p-3 border border-green-200 rounded-lg focus:ring-green-400 focus:border-green-400 transition text-gray-800">
+                        </div>
+                        <button type="submit" id="spmb-submit-button"
+                            class="w-full mt-6 flex items-center justify-center bg-blue-600 text-white font-bold py-3 px-6 rounded-full hover:bg-blue-700 transition-colors shadow-lg disabled:bg-blue-400 text-lg">
+                            <span class="btn-text"><i class="fas fa-paper-plane mr-2"></i> Kirim Data Pendaftaran</span>
+                            <i class="fas fa-spinner fa-spin ml-2 hidden"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
 
         <section id="berita" class="py-20 bg-white">
             <div class="container mx-auto px-6">
@@ -548,7 +371,7 @@
                 </div>
             </div>
         </section>
-        
+
         <section id="guru" class="py-20 bg-white">
             <div class="container mx-auto px-6">
                 <h2 class="text-4xl font-bold text-center mb-4">Struktur Organisasi Sekolah</h2>
@@ -586,7 +409,7 @@
                             <p id="kontak-email" class="flex items-center"><i class="fas fa-envelope w-6 text-center mr-3 text-blue-600"></i></p>
                         </div>
                         <div class="mt-8 pt-6 border-t">
-                            <h4 class="font-bold mb-2 text-lg">Jam Operasional Kantor</h4>
+                            <h4 class="font-bold text-lg mb-2">Jam Operasional Kantor</h4>
                             <p id="kontak-jam" class="text-gray-600"></p>
                         </div>
                     </div>
@@ -613,7 +436,11 @@
                             <button onclick="showAdminTab('kontak')" class="admin-tab text-sm sm:text-base">Hubungi Kami</button>
                             <button onclick="showAdminTab('pengguna')" class="admin-tab text-sm sm:text-base">Manaj. Pengguna</button>
                             <button onclick="showAdminTab('lulusan')" class="admin-tab text-sm sm:text-base">Data Lulusan</button>
-                            <button onclick="showAdminTab('pengumuman-spmb')" class="admin-tab text-sm sm:text-base">Pengumuman SPMB</button> </nav>
+                            <button onclick="showAdminTab('aktivitas')" class="admin-tab text-sm sm:text-base relative">
+                                Aktivitas Anggota
+                                <span id="activity-tab-badge" class="hidden absolute -top-1 right-0 h-3 w-3 bg-red-500 rounded-full"></span>
+                            </button>
+                    </nav>
                 </div>
 
                 <div id="admin-tab-berita" class="admin-tab-content hidden">
@@ -688,8 +515,26 @@
                         </div>
                         <div class="mt-8"><button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">Simpan Informasi SPMB</button></div>
                     </form>
+                    <div class="bg-white p-8 rounded-xl shadow-lg mt-8">
+                        <h3 class="text-2xl font-bold mb-6">Kelola Pengumuman SPMB</h3>
+                        <p class="text-gray-600 mb-4">Atur status pendaftaran siswa berikut (diterima atau tidak memenuhi syarat).</p>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left">
+                                <thead>
+                                    <tr class="bg-gray-100">
+                                        <th class="p-3">No. Pendaftaran</th>
+                                        <th class="p-3">Nama Peserta Didik</th>
+                                        <th class="p-3">Status</th>
+                                        <th class="p-3">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="spmb-admin-table-body">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-                
+
                 <div id="admin-tab-fasilitas" class="admin-tab-content hidden">
                     <div class="bg-white p-8 rounded-xl shadow-lg mb-12">
                         <h3 id="fasilitas-form-title" class="text-2xl font-bold mb-6">Tambah/Edit Fasilitas</h3>
@@ -729,9 +574,9 @@
                                </tbody>
                            </table>
                         </div>
-                    </div>
+                       </div>
                 </div>
-                
+
                 <div id="admin-tab-prestasi" class="admin-tab-content hidden">
                     <div class="bg-white p-8 rounded-xl shadow-lg mb-12">
                         <h3 id="prestasi-form-title" class="text-2xl font-bold mb-6">Tambah/Edit Prestasi</h3>
@@ -835,14 +680,8 @@
                             </table>
                         </div>
                     </div>
-
-                    <div id="admin-reset-requests-section" class="bg-white p-8 rounded-xl shadow-lg mt-8">
-                        <h3 class="text-2xl font-bold mb-6">Permintaan Reset Password Anggota</h3>
-                        <div id="reset-requests-container" class="space-y-4">
-                        </div>
-                    </div>
                 </div>
-                
+
                 <div id="admin-tab-siswa" class="admin-tab-content">
                     <div class="bg-white p-8 rounded-xl shadow-lg">
                         <div class="flex flex-wrap justify-between items-center mb-6 gap-4">
@@ -861,7 +700,7 @@
                                 <button type="button" onclick="openSiswaModal()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center gap-2 text-sm">
                                     <i class="fas fa-plus"></i> Tambah Siswa
                                 </button>
-                                   <button type="button" onclick="confirmDeleteAllSiswa()" class="bg-red-700 text-white px-4 py-2 rounded-lg hover:bg-red-800 flex items-center gap-2 text-sm">
+                                    <button type="button" onclick="confirmDeleteAllSiswa()" class="bg-red-700 text-white px-4 py-2 rounded-lg hover:bg-red-800 flex items-center gap-2 text-sm">
                                     <i class="fas fa-trash-alt"></i> Hapus Semua
                                 </button>
                             </div>
@@ -885,80 +724,36 @@
 
                 <div id="admin-tab-lulusan" class="admin-tab-content hidden">
                         <div class="bg-white p-8 rounded-xl shadow-lg">
-                         <h3 class="text-2xl font-bold mb-6">Daftar Lulusan</h3>
-                         <div class="overflow-x-auto">
-                             <table class="w-full text-left">
-                                 <thead>
-                                     <tr class="bg-gray-100">
-                                         <th class="p-3">No</th>
-                                         <th class="p-3">Nama Lulusan</th>
-                                         <th class="p-3">Tahun Lulus</th>
-                                     </tr>
-                                 </thead>
-                                 <tbody id="lulusan-table-body">
-                                 </tbody>
-                             </table>
-                         </div>
-                     </div>
-                </div>
-
-                <div id="admin-tab-pengumuman-spmb" class="admin-tab-content hidden">
-                    <div class="bg-white p-8 rounded-xl shadow-lg mb-8">
-                        <h3 class="text-2xl font-bold mb-6">Manajemen Pengumuman SPMB</h3>
-                        <p class="text-gray-600 mb-6">Kelola hasil seleksi Penerimaan Murid Baru. Anda bisa menambahkan hasil secara manual atau memproses pendaftar dari formulir online.</p>
-                        
-                        <div class="mb-6">
-                            <h4 class="text-xl font-semibold mb-3 border-b pb-2">Tambah Hasil Pengumuman Manual</h4>
-                            <form id="add-spmb-result-form">
-                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                                    <div>
-                                        <label for="new-spmb-nama" class="block text-sm font-medium text-gray-700">Nama Peserta Didik</label>
-                                        <input type="text" id="new-spmb-nama" class="mt-1 block w-full p-2 border rounded-md" required>
-                                    </div>
-                                    <div>
-                                        <label for="new-spmb-nomor-pendaftaran" class="block text-sm font-medium text-gray-700">Nomor Pendaftaran</label>
-                                        <input type="text" id="new-spmb-nomor-pendaftaran" placeholder="Contoh: SPMB2025001" class="mt-1 block w-full p-2 border rounded-md" required>
-                                    </div>
-                                    <div>
-                                        <label for="new-spmb-status" class="block text-sm font-medium text-gray-700">Status</label>
-                                        <select id="new-spmb-status" class="mt-1 block w-full p-2 border rounded-md" required>
-                                            <option value="">Pilih Status</option>
-                                            <option value="Diterima">Diterima</option>
-                                            <option value="Tidak Lolos">Tidak Lolos</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">Tambah Hasil</button>
-                            </form>
-                        </div>
-
-                        <div class="mb-6">
-                            <h4 class="text-xl font-semibold mb-3 border-b pb-2">Proses Pendaftar Online</h4>
-                            <div id="spmb-applications-list" class="space-y-4">
-                                <p class="text-gray-500 italic">Tidak ada pendaftar baru dari formulir online.</p>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="bg-white p-8 rounded-xl shadow-lg">
-                        <h3 class="text-2xl font-bold mb-6">Daftar Hasil Pengumuman SPMB</h3>
+                        <h3 class="text-2xl font-bold mb-6">Daftar Lulusan</h3>
                         <div class="overflow-x-auto">
                             <table class="w-full text-left">
                                 <thead>
                                     <tr class="bg-gray-100">
-                                        <th class="p-3">Nomor Pendaftaran</th>
-                                        <th class="p-3">Nama</th>
-                                        <th class="p-3">Status</th>
-                                        <th class="p-3">Aksi</th>
+                                        <th class="p-3">No</th>
+                                        <th class="p-3">Nama Lulusan</th>
+                                        <th class="p-3">Tahun Lulus</th>
                                     </tr>
                                 </thead>
-                                <tbody id="spmb-results-table-body">
+                                <tbody id="lulusan-table-body">
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
+
+                <div id="admin-tab-aktivitas" class="admin-tab-content hidden">
+                    <div class="bg-white p-8 rounded-xl shadow-lg">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-2xl font-bold">Log Aktivitas Anggota</h3>
+                            <button id="mark-all-activity-read" class="bg-blue-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-600">
+                                Tandai Semua Telah Dibaca
+                            </button>
+                        </div>
+                        <div id="activity-log-container" class="space-y-3 max-h-[60vh] overflow-y-auto pr-2">
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
@@ -993,38 +788,38 @@
                     </div>
                 </div>
 
-                   <div id="anggota-tab-siswa" class="anggota-tab-content">
-                     <div class="bg-white p-8 rounded-xl shadow-lg">
-                         <div class="flex justify-between items-center mb-6">
-                            <h3 class="text-2xl font-bold">Daftar Peserta Didik</h3>
-                            <button id="anggota-tambah-siswa-btn" onclick="openSiswaModal()" class="hidden bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center gap-2">
-                                <i class="fas fa-plus"></i> Tambah Siswa
-                            </button>
-                         </div>
-                         <div class="overflow-x-auto">
-                             <table class="w-full text-left">
-                                 <thead>
-                                     <tr class="bg-gray-100">
-                                         <th class="p-3">No</th>
-                                         <th class="p-3">Nama Peserta Didik</th>
-                                         <th class="p-3">Kelas</th>
-                                         <th id="anggota-siswa-aksi-header" class="p-3">Aksi</th>
-                                     </tr>
-                                 </thead>
-                                 <tbody id="anggota-siswa-table-body">
-                                 </tbody>
-                             </table>
-                         </div>
-                     </div>
-                 </div>
+                    <div id="anggota-tab-siswa" class="anggota-tab-content">
+                    <div class="bg-white p-8 rounded-xl shadow-lg">
+                        <div class="flex justify-between items-center mb-6">
+                                <h3 class="text-2xl font-bold">Daftar Peserta Didik</h3>
+                                <button id="anggota-tambah-siswa-btn" onclick="openSiswaModal()" class="hidden bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center gap-2">
+                                    <i class="fas fa-plus"></i> Tambah Siswa
+                                </button>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left">
+                                <thead>
+                                    <tr class="bg-gray-100">
+                                        <th class="p-3">No</th>
+                                        <th class="p-3">Nama Peserta Didik</th>
+                                        <th class="p-3">Kelas</th>
+                                        <th id="anggota-siswa-aksi-header" class="p-3">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="anggota-siswa-table-body">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
 
                 <div id="anggota-tab-pengaturan" class="anggota-tab-content hidden">
                     <div class="max-w-xl mx-auto bg-white p-8 rounded-xl shadow-lg">
-                         <h3 class="font-bold text-2xl mb-6 text-center">Pengaturan Akun</h3>
-                         <p class="text-center text-gray-600 mb-6">Anda dapat mengubah nama, username, atau password Anda di sini.</p>
-                         <div class="max-w-sm mx-auto">
-                             <button id="edit-my-profile-btn" class="w-full bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 text-lg font-semibold">Edit Profil & Password</button>
-                         </div>
+                                <h3 class="font-bold text-2xl mb-6 text-center">Pengaturan Akun</h3>
+                                <p class="text-center text-gray-600 mb-6">Anda dapat mengubah nama, username, atau password Anda di sini.</p>
+                                <div class="max-w-sm mx-auto">
+                                    <button id="edit-my-profile-btn" class="w-full bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 text-lg font-semibold">Edit Profil & Password</button>
+                                </div>
                     </div>
                 </div>
             </div>
@@ -1061,7 +856,7 @@
                         <label class="block text-sm font-medium">Login sebagai</label>
                         <div class="flex items-center space-x-4 mt-2">
                             <label class="flex items-center"><input type="radio" name="role" value="admin" class="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500"><span class="ml-2">Admin</span></label>
-                            <label class="flex items-center"><input type="radio" name="role" value="anggota" class="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500" checked><span class="ml-2">Anggota</span></label>
+                            <label class="flex items-center"><input type="radio" name="role" value="anggota" class="h-4 w-4 text-blue-600 border-gray-300 focus:ring-500" checked><span class="ml-2">Anggota</span></label>
                         </div>
                     </div>
                     <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700">Login</button>
@@ -1187,13 +982,20 @@
             pesertaDidik: [
                 { id: 1, nama: "ARJUN MAULANA", kelas: 1 }, { id: 2, nama: "AUDY NATASHA HUMAIRAH", kelas: 1 }, { id: 3, nama: "CINDY AULIA", kelas: 1 }, { id: 4, nama: "FAHMI SAWALUDIN", kelas: 1 }, { id: 5, nama: "KANSA NURKHOLIPAH", kelas: 1 }, { id: 6, nama: "KAYSAN DZAKY", kelas: 1 }, { id: 7, nama: "KEYSA AMELIA PUTRI", kelas: 1 }, { id: 8, nama: "LIDIYANA", kelas: 1 }, { id: 9, nama: "MAURA AQILA FAHREYNA", kelas: 1 }, { id: 10, nama: "MIKA SEPTIYANA GITSUN", kelas: 1 }, { id: 11, nama: "MOCHAMMAD ALDRIC FAHREYZA", kelas: 1 }, { id: 12, nama: "MUHAMAD TENGKU ALFA REZA", kelas: 1 }, { id: 13, nama: "REVAND ZILGWEND", kelas: 1 }, { id: 14, nama: "RIFA NAZIHAH SYIFA", kelas: 1 }, { id: 15, nama: "SALSABIILAH HEASSLER CORA", kelas: 1 }, { id: 16, nama: "SALSABILA MARSELA", kelas: 1 }, { id: 17, nama: "SELVI RAMADHANI", kelas: 1 }, { id: 18, nama: "SHAQELLA KANAYA GHAIDA", kelas: 1 }, { id: 19, nama: "SYAFIRA ARHANI", kelas: 1 }, { id: 20, nama: "Abbad Nailun Nabhan", kelas: 2 }, { id: 21, nama: "Adam Alberd Adrian", kelas: 2 }, { id: 22, nama: "AKHMAD MINNAKHUL KHUSNI", kelas: 2 }, { id: 23, nama: "ALICE SEFYA PRAMUDITA", kelas: 2 }, { id: 24, nama: "ALIKA NATTAYA SHOIPET", kelas: 2 }, { id: 25, nama: "ALISHA KHAIRA RAMADHINA", kelas: 2 }, { id: 26, nama: "ANGGUN ANGGRAENI", kelas: 2 }, { id: 27, nama: "ANTONY TRISTAN AL-JARAS", kelas: 2 }, { id: 28, nama: "AQIVA NAYLA AL-AMIRA", kelas: 2 }, { id: 29, nama: "FITRI AYU DEWI", kelas: 2 }, { id: 30, nama: "GILANG ADITYA", kelas: 2 }, { id: 31, nama: "HANIF TAUFIK BADJRI", kelas: 2 }, { id: 32, nama: "ISTIQOMAH", kelas: 2 }, { id: 33, nama: "KAKA JULIANSYAH", kelas: 2 }, { id: 34, nama: "KHALID AZAM MAULIMI", kelas: 2 }, { id: 35, nama: "KHANZA RISKI RAMADHANI", kelas: 2 }, { id: 36, nama: "KHARUNISA", kelas: 2 }, { id: 37, nama: "MAFAZA NUR MARZIA", kelas: 2 }, { id: 38, nama: "MUHAMAD DAMAR SYARIFUDIN", kelas: 2 }, { id: 39, nama: "MUHAMAD RAFFASYAH", kelas: 2 }, { id: 40, nama: "MUHAMMAD FADLLAN KOSASI", kelas: 2 }, { id: 41, nama: "MUTIARA AGUSTINA WATI", kelas: 2 }, { id: 42, nama: "PANDE PUTU KENZIE MAHATMA", kelas: 2 }, { id: 43, nama: "RESTU ABIH ASAH", kelas: 2 }, { id: 44, nama: "RISANSYAH AHMAD MAULID", kelas: 2 }, { id: 45, nama: "SATRIA RAFLI RAMADHAN", kelas: 2 }, { id: 46, nama: "SOFIYAH", kelas: 2 }, { id: 47, nama: "SYAFANI FAKHRUNNISA", kelas: 2 }, { id: 48, nama: "SYAFWA RAHMA", kelas: 2 }, { id: 49, nama: "SYAQILA KURNIA MALIK", kelas: 2 }, { id: 50, nama: "SYIFANI KHAERUNNISA", kelas: 2 }, { id: 51, nama: "WIRANTO", kelas: 2 }, { id: 52, nama: "ABDURAHMAN JAMALUDIN FARIDZ", kelas: 3 }, { id: 53, nama: "AISAH ROSA", kelas: 3 }, { id: 54, nama: "ALIYA RATNA SARI", kelas: 3 }, { id: 55, nama: "ARDIANSYAH PRATAMA", kelas: 3 }, { id: 56, nama: "ASYFA PUTRI NOVIANTI", kelas: 3 }, { id: 57, nama: "DEANDRA REY FLINKI", kelas: 3 }, { id: 58, nama: "DEEVA ZEVANA PUTRI", kelas: 3 }, { id: 59, nama: "DEWI GAYATRI", kelas: 3 }, { id: 60, nama: "GILANG PRANATA SUKMA", kelas: 3 }, { id: 61, nama: "ICA ROHAIDAH", kelas: 3 }, { id: 62, nama: "JIDAN KHOIRUL ADHA", kelas: 3 }, { id: 63, nama: "KEANU HERLINO ABBASY", kelas: 3 }, { id: 64, nama: "KHOFSOH", kelas: 3 }, { id: 65, nama: "MUHAMAD FAHAT FIRDAUS", kelas: 3 }, { id: 66, nama: "MUHAMMAD ADE IKHYA ULUMUDIN", kelas: 3 }, { id: 67, nama: "MUHAMMAD HAFIDZ NUR RAFII", kelas: 3 }, { id: 68, nama: "NOVI ASHARA MULYANINGRUM", kelas: 3 }, { id: 69, nama: "PANCA FATHUNABA", kelas: 3 }, { id: 70, nama: "RANGGA KHAIRUL WISAM", kelas: 3 }, { id: 71, nama: "REEMA APRILLIANI", kelas: 3 }, { id: 72, nama: "REVALINA PUTRI DIANI", kelas: 3 }, { id: 73, nama: "RIKI WIJAYA", kelas: 3 }, { id: 74, nama: "SARAH", kelas: 3 }, { id: 75, nama: "WINDA KOMALASARI", kelas: 3 }, { id: 76, nama: "YUNITA APRILYA AGUSTINE", kelas: 3 }, { id: 77, nama: "YASMIN AZZIKRA", kelas: 3 }, { id: 78, nama: "ABU BAKAR HASAN BAROYA", kelas: 3 }, { id: 79, nama: "ALIF DARIS HERNANDEZ", kelas: 4 }, { id: 80, nama: "ASSYIFAH INDAH KHAIRUNNISYA", kelas: 4 }, { id: 81, nama: "DAFFA NAUFAL AFKAR", kelas: 4 }, { id: 82, nama: "DEWI PARWATI MUTMA'INAH", kelas: 4 }, { id: 83, nama: "FAJRIL ILHAM AMRULLAH", kelas: 4 }, { id: 84, nama: "FARRA SYAKIRA RAMADHANI", kelas: 4 }, { id: 85, nama: "KIAN SENTANU AJI", kelas: 4 }, { id: 86, nama: "MUHAMMAD PRABU", kelas: 4 }, { id: 87, nama: "NIRWANA BILQIS", kelas: 4 }, { id: 88, nama: "PUTRI NABILLA OKTAVIYANI", kelas: 4 }, { id: 89, nama: "RAFA AZKA PUTRA", kelas: 4 }, { id: 90, nama: "S. NUR ENDANG PUTRI BARUNA", kelas: 4 }, { id: 91, nama: "SALSA OKTAVIANI", kelas: 4 }, { id: 92, nama: "SERIN SHELIYA AGIWA", kelas: 4 }, { id: 93, nama: "WIRA WERDINATA", kelas: 4 }, { id: 94, nama: "ZIHAN PADILA ANGGARA SUKMA", kelas: 4 }, { id: 95, nama: "SERLY MELIYANA PUSPA", kelas: 4 }, { id: 96, nama: "AHMAD BAHHANI", kelas: 5 }, { id: 97, nama: "AISYAH", kelas: 5 }, { id: 98, nama: "ALWY MUHAMMAD ASYQ", kelas: 5 }, { id: 99, nama: "BAGAS ALVIANO", kelas: 5 }, { id: 100, nama: "DELLISA OKTOFIA NURAZZAMI", kelas: 5 }, { id: 101, nama: "ELISBETH GOTZE MULLER", kelas: 5 }, { id: 102, nama: "EVAN DIMAS PERMANA", kelas: 5 }, { id: 103, nama: "FARHAN ADE MAULANA", kelas: 5 }, { id: 104, nama: "JORDI ALBA", kelas: 5 }, { id: 105, nama: "LINTANG NURZAHRA", kelas: 5 }, { id: 106, nama: "MINHATUN MAULIA", kelas: 5 }, { id: 107, nama: "MOHAMAD ADWA JAVIER", kelas: 5 }, { id: 108, nama: "MUHAMAD FAQIH", kelas: 5 }, { id: 109, nama: "MUHAMMAD BIYAN KOSASI", kelas: 5 }, { id: 110, nama: "MUHAMMAD HANIF ALWI ZAIN", kelas: 5 }, { id: 111, nama: "MUHAMMAD SULTAN JAGARA", kelas: 5 }, { id: 112, nama: "NAZMA HAYATUNNISA", kelas: 5 }, { id: 113, nama: "PADIL MUHAMMAD SODDIQUEN", kelas: 5 }, { id: 114, nama: "REZKY ADHA AL-AMIN", kelas: 5 }, { id: 115, nama: "RIZKADILA MIRANTY", kelas: 5 }, { id: 116, nama: "SATRIYA WIGUNA", kelas: 5 }, { id: 117, nama: "WARSINIH SUSILAWATI", kelas: 5 }, { id: 118, nama: "Adam Nur'riski", kelas: 6 }, { id: 119, nama: "Aura Indah Zahra", kelas: 6 }, { id: 120, nama: "Ayu Ramadhani", kelas: 6 }, { id: 121, nama: "Eliza", kelas: 6 }, { id: 122, nama: "Fuji Anggun Silvi Indah", kelas: 6 }, { id: 123, nama: "Lizzie Adelia Putri", kelas: 6 }, { id: 124, nama: "Michila Aulia Mecca", kelas: 6 }, { id: 125, nama: "Mohamad Syafi'i Asyhari", kelas: 6 }, { id: 126, nama: "Muhyi Anwar Hafisudin", kelas: 6 }, { id: 127, nama: "Rahmat Hidayat", kelas: 6 }, { id: 128, nama: "Salamah Rahmah", kelas: 6 }, { id: 129, nama: "Sri Bunga Yoanika", kelas: 6 }, { id: 130, nama: "Umam Mizan Syamsuddin", kelas: 6 }
             ],
-            lulusan: [],
-            passwordResets: [],
-            spmbResults: [ // New array for SPMB results
-                { id: 1, registrationNumber: "SPMB2025001", name: "Ananda Putri", status: "Diterima" },
-                { id: 2, registrationNumber: "SPMB2025002", name: "Budi Santoso", status: "Tidak Lolos" },
+            spmbApplicants: [
+                { id: 1, nama: "Budi Santoso", tempat_lahir: "Indramayu", tgl_lahir: "2019-03-15", alamat: "Jl. Merdeka No. 1", no_hp: "081234567001", status: "accepted" },
+                { id: 2, nama: "Siti Aminah", tempat_lahir: "Cirebon", tgl_lahir: "2019-07-20", alamat: "Jl. Diponegoro No. 5", no_hp: "081234567002", status: "rejected" },
+                { id: 3, nama: "Agus Salim", tempat_lahir: "Bandung", tgl_lahir: "2018-01-10", alamat: "Jl. Sudirman No. 10", no_hp: "081234567003", status: "accepted" },
+                { id: 4, nama: "Dewi Lestari", tempat_lahir: "Indramayu", tgl_lahir: "2019-09-01", alamat: "Jl. Pahlawan No. 22", no_hp: "081234567004", status: "rejected" },
+                { id: 5, nama: "Faisal Rahman", tempat_lahir: "Jakarta", tgl_lahir: "2018-05-25", alamat: "Jl. Gatot Subroto No. 30", no_hp: "081234567005", status: "accepted" },
+                { id: 6, nama: "Nisa Khairani", tempat_lahir: "Indramayu", tgl_lahir: "2019-02-18", alamat: "Jl. Kartini No. 8", no_hp: "081234567006", status: "rejected" },
+                { id: 7, nama: "Rizky Pratama", tempat_lahir: "Subang", tgl_lahir: "2018-11-03", alamat: "Jl. Imam Bonjol No. 15", no_hp: "081234567007", status: "accepted" },
+                { id: 8, nama: "Lina Marlina", tempat_lahir: "Bekasi", tgl_lahir: "2019-04-22", alamat: "Jl. Ahmad Yani No. 7", no_hp: "081234567008", status: "rejected" },
+                { id: 9, nama: "Yoga Wicaksono", tempat_lahir: "Purwakarta", tgl_lahir: "2018-08-12", alamat: "Jl. Kyai Haji Dewantara No. 4", no_hp: "081234567009", status: "pending" },
+                { id: 10, nama: "Diana Putri", tempat_lahir: "Indramayu", tgl_lahir: "2019-06-30", alamat: "Jl. Cendrawasih No. 11", no_hp: "081234567010", status: "pending" }
             ],
-            spmbApplications: [], // To temporarily store new applications from the form
+            lulusan: [],
+            activityLog: [],
             profil: {
                 kepsek: {
                     nama: "Citra Yacob, S.Pd.",
@@ -1269,42 +1071,60 @@
             title: 'Peringatan HUT RI ke-80',
             content: 'Siswa-siswi dengan antusias mengikuti berbagai lomba.',
             image: 'https://placehold.co/600x400/f39c12/ffffff?text=Kegiatan+17+Agustus',
-            fullContent: 'Seluruh warga sekolah, mulai dari siswa, guru, hingga staf, turut serta memeriahkan acara peringatan Hari Ulang Tahun Republik Indonesia yang ke-80. Berbagai macam lomba seperti balap karung, makan kerupuk, dan tarik tambang diadakan untuk menumbuhkan semangat kebersamaan dan nasionalisme.'
+            fullContent: 'Seluruh warga sekolah, mulai dari siswa, guru, hingga staf, turut serta memeriahkan acara peringatan Hari Ulang Tahun Republik Indonesia yang ke-80. Berbagai macam lomba seperti balap karung, makan kerupuk, dan tarik tambang diadakan untuk menumbuhkan semangat kebersamaan dan nasionalisme.',
+            author: 'citrayacob'
         }, {
             id: 2,
             title: 'Perkemahan Hari Pramuka',
             content: 'Kegiatan Persami untuk melatih kemandirian siswa.',
             image: 'https://placehold.co/600x400/2ecc71/ffffff?text=Hari+Pramuka',
-            fullContent: 'Dalam rangka memperingati Hari Pramuka, gugus depan SDN 3 Pekandangan mengadakan kegiatan Perkemahan Sabtu-Minggu (Persami). Acara diisi dengan kegiatan mendirikan tenda, api unggun, dan jelajah alam untuk melatih kedisiplinan, kemandirian, dan kerjasama antar anggota regu.'
+            fullContent: 'Dalam rangka memperingati Hari Pramuka, gugus depan SDN 3 Pekandangan mengadakan kegiatan Perkemahan Sabtu-Minggu (Persami). Acara diisi dengan kegiatan mendirikan tenda, api unggun, dan jelajah alam untuk melatih kedisiplinan, kemandirian, dan kerjasama antar anggota regu.',
+            author: 'ibnusaefullah'
         }, {
             id: 3,
             title: 'Workshop Literasi Digital',
             content: 'Siswa belajar menggunakan teknologi secara bijak.',
             image: 'https://placehold.co/600x400/9b59b6/ffffff?text=Literasi+Digital',
-            fullContent: 'Bekerja sama dengan dinas pendidikan setempat, SDN 3 Pekandangan menggelar workshop tentang literasi digital. Siswa diajarkan cara mengidentifikasi berita hoaks, menjaga privasi di media sosial, dan memanfaatkan internet untuk pembelajaran secara positif dan aman.'
+            fullContent: 'Bekerja sama dengan dinas pendidikan setempat, SDN 3 Pekandangan menggelar workshop tentang literasi digital. Siswa diajarkan cara mengidentifikasi berita hoaks, menjaga privasi di media sosial, dan memanfaatkan internet untuk pembelajaran secara positif dan aman.',
+            author: 'citrayacob'
         }];
+        
+        // MODIFIED: logActivity now accepts a details object for more flexibility
+        function logActivity(logDetails) {
+            if (!logDetails.username) return; 
+
+            const newLog = {
+                id: Date.now(),
+                timestamp: new Date().toISOString(),
+                read: false,
+                ...logDetails
+            };
+            websiteContent.activityLog.unshift(newLog); // Add to the beginning of the array
+            updateAdminNotificationBadge();
+            renderActivityLog(); // Re-render log to show new entry
+        }
+
 
         function renderAllContent() {
             renderWebsiteContent();
             renderStrukturOrganisasi();
             renderPosts();
             initHeroSlider();
-            renderPasswordResets();
-            updateResetNotification();
+            updateAdminNotificationBadge();
             renderUserManagementTable();
             renderSiswaManagementTable();
+            renderAnggotaSiswaTable();
             renderSPMB();
             renderFasilitas();
             renderPrestasi();
             renderGaleri();
             renderAdminForms();
-            renderSpmbResultsTable(); // Render SPMB results table on page load
-            renderSpmbApplications(); // Render pending SPMB applications
-            renderLulusanTable(); // Render Lulusan table
+            renderActivityLog();
         }
 
         function renderAdminForms() {
             renderSPMBAdminForm();
+            renderSPMBApplicantsTable();
             renderFasilitasAdminTable();
             renderPrestasiAdminTable();
             renderGaleriAdminTable();
@@ -1332,6 +1152,9 @@
             document.getElementById('galeri-form').addEventListener('submit', handleGaleriSubmit);
             document.getElementById('cancel-edit-galeri-btn').addEventListener('click', resetGaleriForm);
             document.getElementById('edit-my-profile-btn').addEventListener('click', showEditMyProfileModal);
+            document.getElementById('anggota-post-form').addEventListener('submit', handleAnggotaPostSubmit);
+            document.getElementById('anggota-cancel-edit-btn').addEventListener('click', resetAnggotaPostForm);
+            document.getElementById('mark-all-activity-read').addEventListener('click', markAllActivitiesAsRead);
             setupModal('login-modal', 'login-modal-content', 'login-button', 'mobile-login-button', 'close-login-modal');
             setupModal('forgot-password-modal', 'forgot-password-modal-content', 'forgot-password-btn', null, 'close-forgot-modal');
             setupModal('edit-siswa-modal', 'edit-siswa-modal-content', null, null, 'close-edit-siswa-modal');
@@ -1340,43 +1163,17 @@
             document.getElementById('edit-user-form').addEventListener('submit', handleUpdateUser);
             document.getElementById('login-form').addEventListener('submit', handleLogin);
             document.getElementById('forgot-password-form').addEventListener('submit', handleForgotPasswordRequest);
-            
-            // SPMB Form Submission to capture data locally
             document.getElementById('spmb-form').addEventListener('submit', e => {
                 if (!e.target.checkValidity()) return;
-                const formData = new FormData(e.target);
-                const applicationData = {
-                    id: Date.now(),
-                    nama: formData.get('nama'),
-                    tempatLahir: formData.get('Tempat_Lahir'),
-                    tanggalLahir: formData.get('tgl_lahir'),
-                    alamat: formData.get('alamat'),
-                    noHp: formData.get('no_hp'),
-                    status: "Menunggu Diproses" // Initial status
-                };
-                websiteContent.spmbApplications.push(applicationData);
                 spmbFormSubmitted = true;
                 const spmbSubmitButton = document.getElementById('spmb-submit-button');
                 spmbSubmitButton.querySelector('.btn-text').textContent = 'Mengirim...';
                 spmbSubmitButton.querySelector('.fa-spinner').classList.remove('hidden');
                 spmbSubmitButton.disabled = true;
-                
-                // Simulate form submission to Google Apps Script by still allowing the iframe to load
-                // The actual data capture will be done by our local JS `spmbApplications` array
+                document.getElementById('spmb-message').innerHTML = '';
             });
-            
             document.getElementById('siswa-form').addEventListener('submit', handleSiswaSubmit);
             document.getElementById('cancel-edit-siswa-btn').addEventListener('click', () => closeModalById('edit-siswa-modal'));
-
-            // Event listener for SPMB result check form
-            document.getElementById('spmb-check-form').addEventListener('submit', checkSpmbResult);
-
-            // Event listeners for SPMB Admin Management
-            document.getElementById('add-spmb-result-form').addEventListener('submit', handleAddSpmbResult);
-
-            // Theme Toggle Event Listeners
-            document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
-            document.getElementById('mobile-theme-toggle').addEventListener('click', toggleTheme);
         }
 
         function renderWebsiteContent() {
@@ -1447,7 +1244,54 @@
                     </div>
                 </div>`;
         }
-        
+
+        function renderSPMBApplicantsTable() {
+            const tableBody = document.getElementById('spmb-admin-table-body');
+            if (!tableBody) return;
+
+            tableBody.innerHTML = '';
+
+            websiteContent.spmbApplicants.forEach(applicant => {
+                const row = tableBody.insertRow();
+                row.className = 'border-b align-middle';
+
+                const statusColor = applicant.status === 'accepted' ? 'bg-green-100 text-green-800' :
+                                             applicant.status === 'rejected' ? 'bg-red-100 text-red-800' :
+                                             'bg-yellow-100 text-yellow-800';
+                const statusText = applicant.status === 'accepted' ? 'Diterima' :
+                                           applicant.status === 'rejected' ? 'Tidak Memenuhi Syarat' :
+                                           'Pending';
+
+                row.innerHTML = `
+                    <td class="p-3">${applicant.id}</td>
+                    <td class="p-3">${applicant.nama}</td>
+                    <td class="p-3">
+                        <span class="px-2 py-1 text-xs rounded-full ${statusColor}">${statusText}</span>
+                    </td>
+                    <td class="p-3 whitespace-nowrap">
+                        <button onclick="setSpmbApplicantStatus(${applicant.id}, 'accepted')" class="text-green-600 hover:text-green-800 mr-2" title="Set Diterima"><i class="fas fa-check"></i></button>
+                        <button onclick="setSpmbApplicantStatus(${applicant.id}, 'rejected')" class="text-red-600 hover:text-red-800 mr-2" title="Set Tidak Memenuhi Syarat"><i class="fas fa-times"></i></button>
+                        <button onclick="setSpmbApplicantStatus(${applicant.id}, 'pending')" class="text-yellow-600 hover:text-yellow-800" title="Set Pending"><i class="fas fa-hourglass-half"></i></button>
+                    </td>
+                `;
+            });
+        }
+
+        function setSpmbApplicantStatus(id, newStatus) {
+            const applicantIndex = websiteContent.spmbApplicants.findIndex(app => app.id === id);
+            if (applicantIndex !== -1) {
+                const oldStatus = websiteContent.spmbApplicants[applicantIndex].status;
+                websiteContent.spmbApplicants[applicantIndex].status = newStatus;
+                showNotification(`Status pendaftar ${websiteContent.spmbApplicants[applicantIndex].nama} diubah dari "${oldStatus}" menjadi "${newStatus}".`, 'success');
+                renderSPMBApplicantsTable();
+                logActivity({
+                    username: currentUser.username,
+                    action: `mengubah status pendaftar SPMB ${websiteContent.spmbApplicants[applicantIndex].nama} menjadi "${newStatus}"`
+                });
+            }
+        }
+
+
         function renderFasilitas() {
             const container = document.getElementById('fasilitas-container');
             container.innerHTML = '';
@@ -1464,7 +1308,7 @@
                 </div>`;
             });
         }
-        
+
         function renderStrukturOrganisasi() {
             const container = document.getElementById('struktur-container');
             if (!container) return;
@@ -1472,7 +1316,7 @@
             const kepalaSekolah = websiteContent.users.find(u => u.jabatan && u.jabatan.toLowerCase().includes('kepala sekolah'));
             const dewanGuru = websiteContent.users.filter(u => u.jabatan && u.jabatan.toLowerCase().includes('guru'));
             const tendik = websiteContent.users.filter(u => u.jabatan && !u.jabatan.toLowerCase().includes('kepala sekolah') && !u.jabatan.toLowerCase().includes('guru'));
-            
+
             let kepalaSekolahHTML = '';
             if (kepalaSekolah) {
                 kepalaSekolahHTML = `
@@ -1494,11 +1338,11 @@
 
             const tendikHTML = tendik.map(staf => `
                     <div class="text-center relative pt-8">
-                        <div class="absolute top-0 left-1/2 -translate-x-1/2 h-8 border-l-2 border-dashed border-indigo-400"></div>
-                        <img src="${staf.foto_url || 'https://placehold.co/200x200/cccccc/ffffff?text=Foto'}" alt="Foto ${staf.name}" class="w-28 h-28 rounded-full mx-auto mb-4 shadow-md object-cover">
-                        <h4 class="font-bold text-lg">${staf.name}</h4>
-                        <p class="text-gray-600 text-sm">${staf.jabatan}</p>
-                    </div>
+                       <div class="absolute top-0 left-1/2 -translate-x-1/2 h-8 border-l-2 border-dashed border-indigo-400"></div>
+                       <img src="${staf.foto_url || 'https://placehold.co/200x200/cccccc/ffffff?text=Foto'}" alt="Foto ${staf.name}" class="w-28 h-28 rounded-full mx-auto mb-4 shadow-md object-cover">
+                       <h4 class="font-bold text-lg">${staf.name}</h4>
+                       <p class="text-gray-600 text-sm">${staf.jabatan}</p>
+                   </div>
             `).join('');
 
             container.innerHTML = `
@@ -1529,14 +1373,14 @@
                 return;
             }
             websiteContent.prestasi.forEach(p => {
-                   container.innerHTML += `
-                   <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
-                        <img src="${p.image}" alt="${p.title}" class="w-full h-48 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Error';">
-                        <div class="p-6">
-                            <h3 class="text-xl font-bold mb-2">${p.title}</h3>
-                            <p class="text-gray-600 text-sm">${p.description}</p>
-                        </div>
-                   </div>`;
+                    container.innerHTML += `
+                       <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
+                               <img src="${p.image}" alt="${p.title}" class="w-full h-48 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Error';">
+                               <div class="p-6">
+                                       <h3 class="text-xl font-bold mb-2">${p.title}</h3>
+                                       <p class="text-gray-600 text-sm">${p.description}</p>
+                               </div>
+                       </div>`;
             });
         }
 
@@ -1574,7 +1418,7 @@
             document.getElementById('edit-spmb-syarat-umum').value = websiteContent.spmb.syaratUmum.join('\n');
             document.getElementById('edit-spmb-berkas').value = websiteContent.spmb.berkas.join('\n');
         }
-        
+
         function renderFasilitasAdminTable() {
             const container = document.getElementById('fasilitas-table-container');
             let tableHTML = `<table class="w-full text-left">
@@ -1610,7 +1454,7 @@
                 tbody.innerHTML += row;
             });
         }
-        
+
         function renderPrestasiAdminTable() {
             const container = document.getElementById('prestasi-table-container');
             let tableHTML = `<table class="w-full text-left">
@@ -1682,48 +1526,30 @@
                     tableBody.appendChild(tableRow);
                 }
             });
+
+            renderAnggotaPostsTable();
         }
 
-        function renderPasswordResets() {
-            const container = document.getElementById('reset-requests-container');
-            if (!container) return;
-            container.innerHTML = '';
+        // MODIFIED: updateAdminNotificationBadge now only counts unread activityLog items
+        function updateAdminNotificationBadge() {
+            const unreadActivities = websiteContent.activityLog.filter(log => !log.read).length;
+            
+            const badge = document.getElementById('admin-notif-badge');
+            const tabBadge = document.getElementById('activity-tab-badge');
 
-            if (websiteContent.passwordResets.length === 0) {
-                container.innerHTML = '<p class="text-gray-500 italic">Tidak ada permintaan reset saat ini.</p>';
-                return;
-            }
-
-            websiteContent.passwordResets.forEach((username, index) => {
-                const div = document.createElement('div');
-                div.className = 'flex items-center justify-between p-4 bg-gray-50 rounded-lg';
-                div.innerHTML = `
-                    <div>
-                        <span class="font-semibold">${username}</span>
-                        <p class="text-sm text-gray-500">Meminta reset password</p>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <input type="text" id="new-password-for-${username}" placeholder="Password Baru" class="p-2 border rounded-md text-sm">
-                        <button onclick="resetAnggotaPasswordAdmin('${username}')" class="bg-green-500 text-white px-3 py-2 rounded-lg text-sm hover:bg-green-600">Reset</button>
-                    </div>
-                `;
-                container.appendChild(div);
-            });
-        }
-
-        function updateResetNotification() {
-            const count = websiteContent.passwordResets.length;
-            const badge = document.getElementById('activity-notif-badge');
             if (badge) {
-                if (count > 0) {
-                    badge.textContent = count;
+                if (unreadActivities > 0) {
+                    badge.textContent = unreadActivities;
                     badge.classList.remove('hidden');
                 } else {
                     badge.classList.add('hidden');
                 }
             }
+                if (tabBadge) {
+                tabBadge.classList.toggle('hidden', unreadActivities === 0);
+            }
         }
-        
+
         function handleProfilUpdate(e) {
             e.preventDefault();
             const profil = websiteContent.profil;
@@ -1734,7 +1560,7 @@
             profil.visi = document.getElementById('edit-visi').value;
             profil.misi = document.getElementById('edit-misi').value.split('\n').filter(line => line.trim() !== '');
             renderWebsiteContent();
-            showNotification('Perubahan profil berhasil disimpan!', 'success');
+            showNotification('Perubahan profil berhasil disimpan', 'success');
         }
 
         function handleKontakUpdate(e) {
@@ -1745,9 +1571,9 @@
             kontak.email = document.getElementById('edit-kontak-email').value;
             kontak.jam = document.getElementById('edit-kontak-jam').value;
             renderWebsiteContent();
-            showNotification('Perubahan kontak berhasil disimpan!', 'success');
+            showNotification('Perubahan kontak berhasil disimpan', 'success');
         }
-        
+
         function handleSpmbUpdate(e) {
             e.preventDefault();
             const inputs = document.querySelectorAll('.spmb-input');
@@ -1759,9 +1585,9 @@
             websiteContent.spmb.syaratUmum = document.getElementById('edit-spmb-syarat-umum').value.split('\n').filter(Boolean);
             websiteContent.spmb.berkas = document.getElementById('edit-spmb-berkas').value.split('\n').filter(Boolean);
             renderSPMB();
-            showNotification('Informasi SPMB berhasil diperbarui!', 'success');
+            showNotification('Informasi SPMB berhasil diperbarui', 'success');
         }
-        
+
         function handleFasilitasSubmit(e) {
             e.preventDefault();
             const id = document.getElementById('fasilitas-id').value;
@@ -1785,7 +1611,7 @@
         }
 
         function handlePrestasiSubmit(e) {
-               e.preventDefault();
+                e.preventDefault();
             const id = document.getElementById('prestasi-id').value;
             const data = {
                 title: document.getElementById('prestasi-judul').value,
@@ -1824,7 +1650,7 @@
             resetGaleriForm();
             showNotification('Gambar galeri berhasil disimpan.', 'success');
         }
-        
+
         function editFasilitas(id) {
             const f = websiteContent.fasilitas.find(f => f.id === id);
             document.getElementById('fasilitas-id').value = f.id;
@@ -1842,7 +1668,7 @@
             document.getElementById('cancel-edit-fasilitas-btn').classList.add('hidden');
             document.getElementById('fasilitas-form-title').textContent = "Tambah Fasilitas";
         }
-        
+
         function editPrestasi(id) {
             const p = websiteContent.prestasi.find(p => p.id === id);
             document.getElementById('prestasi-id').value = p.id;
@@ -1886,13 +1712,15 @@
             switch(tabName) {
                 case 'pengguna':
                     renderUserManagementTable();
-                    renderPasswordResets();
                     break;
                 case 'siswa':
                     renderSiswaManagementTable();
                     break;
                 case 'lulusan':
                     renderLulusanTable();
+                    break;
+                case 'aktivitas':
+                    renderActivityLog();
                     break;
                 case 'profil':
                     const profil = websiteContent.profil;
@@ -1912,17 +1740,14 @@
                     break;
                 case 'spmb':
                     renderSPMBAdminForm();
+                    renderSPMBApplicantsTable();
                     break;
                 case 'struktur':
                     renderStrukturAdminPreview();
                     break;
-                case 'pengumuman-spmb': // NEW
-                    renderSpmbResultsTable();
-                    renderSpmbApplications();
-                    break;
             }
         }
-        
+
         function showAnggotaTab(tabName) {
             document.querySelectorAll('.anggota-tab-content').forEach(tab => tab.classList.add('hidden'));
             document.getElementById(`anggota-tab-${tabName}`).classList.remove('hidden');
@@ -1930,11 +1755,13 @@
             document.querySelectorAll('.anggota-tab').forEach(button => button.classList.remove('active-tab'));
             document.querySelector(`#anggota-tabs button[onclick="showAnggotaTab('${tabName}')"]`).classList.add('active-tab');
 
-               if (tabName === 'siswa') {
-                    renderAnggotaSiswaTable();
-                }
+                if (tabName === 'siswa') {
+                renderAnggotaSiswaTable();
+            } else if (tabName === 'berita') {
+                renderAnggotaPostsTable();
+            }
         }
-        
+
         function addNewUser(e) {
             e.preventDefault();
             const name = document.getElementById('new-user-name').value;
@@ -1971,11 +1798,11 @@
                 icon.classList.replace('fa-eye-slash', 'fa-eye');
             }
         }
-        
+
         function renderUserManagementTable() {
             const tableBody = document.getElementById('users-table-body');
             if (!tableBody) return;
-            tableBody.innerHTML = ''; 
+            tableBody.innerHTML = '';
 
             websiteContent.users.forEach(user => {
                 const row = tableBody.insertRow();
@@ -2015,7 +1842,7 @@
                     Array.from(row.cells).forEach(cell => cell.classList.add('p-3'));
             });
         }
-        
+
         function changeUserRole(username, isChecked) {
             const newRole = isChecked ? 'admin' : 'anggota';
             const userIndex = websiteContent.users.findIndex(user => user.username === username);
@@ -2041,17 +1868,17 @@
         function showEditUserModal(username) {
             const user = websiteContent.users.find(u => u.username === username);
             if (!user) return;
-            
+
             document.getElementById('edit-original-username').value = user.username;
             document.getElementById('edit-user-name').value = user.name;
             document.getElementById('edit-username').value = user.username;
-            document.getElementById('edit-user-password').value = ''; 
+            document.getElementById('edit-user-password').value = '';
             document.getElementById('edit-user-jabatan').value = user.jabatan || '';
             document.getElementById('edit-user-foto').value = user.foto_url || '';
-            
+
             openModalById('edit-user-modal');
         }
-        
+
         function showEditMyProfileModal() {
             showEditUserModal(currentUser.username);
         }
@@ -2075,6 +1902,12 @@
             }
 
             const userToUpdate = websiteContent.users[userIndex];
+            const isSelfEditByAnggota = currentUser.username === originalUsername && !currentUser.isAdmin;
+
+            if (isSelfEditByAnggota) {
+                logActivity({username: originalUsername, action: 'memperbarui profil & password mereka.'});
+            }
+
             userToUpdate.name = newName;
             userToUpdate.username = newUsername;
             userToUpdate.jabatan = newJabatan;
@@ -2087,7 +1920,7 @@
                 currentUser.username = newUsername;
                 updateUserStatus();
             }
-            
+
             showNotification('Data pengguna berhasil diperbarui!', 'success');
             closeModalById('edit-user-modal');
             renderUserManagementTable();
@@ -2120,24 +1953,30 @@
                 showNotification('Gagal menghapus pengguna. Pengguna tidak ditemukan.', 'error');
             }
         }
-        
+
         function handleSiswaSubmit(e) {
             e.preventDefault();
             const siswaId = document.getElementById('siswa-id').value;
             const nama = document.getElementById('siswa-name').value;
             const kelas = parseInt(document.getElementById('siswa-kelas').value);
-            
+
             if (siswaId) {
                 const index = websiteContent.pesertaDidik.findIndex(s => s.id == siswaId);
                 if (index !== -1) {
                     websiteContent.pesertaDidik[index].nama = nama;
                     websiteContent.pesertaDidik[index].kelas = kelas;
                 }
-                   showNotification('Data siswa berhasil diperbarui!', 'success');
+                showNotification('Data siswa berhasil diperbarui!', 'success');
+                    if (!currentUser.isAdmin) {
+                    logActivity({username: currentUser.username, action: `memperbarui data siswa: ${nama}`});
+                    }
             } else {
                 const newId = Date.now();
                 websiteContent.pesertaDidik.push({ id: newId, nama, kelas });
                 showNotification('Siswa baru berhasil ditambahkan!', 'success');
+                    if (!currentUser.isAdmin) {
+                    logActivity({username: currentUser.username, action: `menambahkan siswa baru: ${nama}`});
+                    }
             }
             renderSiswaManagementTable();
             renderAnggotaSiswaTable();
@@ -2158,7 +1997,7 @@
                     document.getElementById('siswa-kelas').value = siswa.kelas;
                 }
             } else {
-                   formTitle.textContent = 'Tambah Peserta Didik Baru';
+                    formTitle.textContent = 'Tambah Peserta Didik Baru';
             }
             openModalById('edit-siswa-modal');
         }
@@ -2166,25 +2005,34 @@
         function editSiswa(id) {
             openSiswaModal(id);
         }
-        
-        function confirmDeleteSiswa(id) {
+
+        function confirmDeleteSiswa(id, actor = 'admin') {
             const siswa = websiteContent.pesertaDidik.find(s => s.id === id);
             if (!siswa) return;
-            
+
             openConfirmationModal({
                 title: 'Hapus Peserta Didik',
                 message: `Apakah Anda yakin ingin menghapus data <b>${siswa.nama}</b>? Tindakan ini tidak dapat dibatalkan.`,
                 yesText: 'Ya, Hapus',
                 yesClass: 'bg-red-600 hover:bg-red-700',
-                onConfirm: () => deleteSiswa(id)
+                onConfirm: () => deleteSiswa(id, actor)
             });
         }
 
-        function deleteSiswa(id) {
-            websiteContent.pesertaDidik = websiteContent.pesertaDidik.filter(s => s.id !== id);
+        function deleteSiswa(id, actor = 'admin') {
+            const siswaIndex = websiteContent.pesertaDidik.findIndex(s => s.id === id);
+                if (siswaIndex === -1) return;
+
+            const siswa = websiteContent.pesertaDidik[siswaIndex];
+            websiteContent.pesertaDidik.splice(siswaIndex, 1);
+
             renderSiswaManagementTable();
             renderAnggotaSiswaTable();
             showNotification('Data siswa berhasil dihapus.', 'success');
+
+            if (actor !== 'admin') {
+                logActivity({username: actor, action: `menghapus siswa: ${siswa.nama}`});
+            }
         }
 
         function renderSiswaManagementTable() {
@@ -2207,7 +2055,7 @@
                 `;
             });
         }
-        
+
         function renderAnggotaSiswaTable() {
             const tableBody = document.getElementById('anggota-siswa-table-body');
             const tambahBtn = document.getElementById('anggota-tambah-siswa-btn');
@@ -2225,7 +2073,7 @@
             let myStudents = [];
             const isSubjectTeacher = loggedInUser.jabatan === 'Guru Agama Islam' || loggedInUser.jabatan === 'Guru Olahraga';
             const isClassTeacher = !!loggedInUser.rombel;
-            
+
             tambahBtn.classList.toggle('hidden', !isClassTeacher);
             aksiHeader.classList.toggle('hidden', !isClassTeacher);
 
@@ -2240,20 +2088,20 @@
                     tableBody.innerHTML = `<tr><td colspan="4" class="p-3 text-center italic">Tidak ada data siswa.</td></tr>`;
                     return;
             }
-            
+
             myStudents.sort((a, b) => a.kelas - b.kelas || a.nama.localeCompare(b.nama));
-            
+
             myStudents.forEach((siswa, index) => {
                 const row = tableBody.insertRow();
                 row.className = 'border-b';
-                
+
                 let aksiCellHTML = '';
                 if(isClassTeacher && loggedInUser.rombel === siswa.kelas) {
                         aksiCellHTML = `
-                            <button onclick="confirmSiswaAction(${siswa.id}, 'promote')" class="text-green-600 hover:text-green-800 mr-2" title="Naikkan Kelas"><i class="fas fa-arrow-up"></i></button>
-                            <button onclick="confirmSiswaAction(${siswa.id}, 'retain')" class="text-gray-500 hover:text-gray-700 mr-2" title="Tinggal Kelas"><i class="fas fa-anchor"></i></button>
-                            <button onclick="editSiswa(${siswa.id})" class="text-blue-600 hover:text-blue-800 mr-2" title="Edit"><i class="fas fa-edit"></i></button>
-                            <button onclick="confirmDeleteSiswa(${siswa.id})" class="text-red-600 hover:text-red-800" title="Hapus"><i class="fas fa-trash"></i></button>
+                                <button onclick="confirmSiswaAction(${siswa.id}, 'promote', '${currentUser.username}')" class="text-green-600 hover:text-green-800 mr-2" title="Naikkan Kelas"><i class="fas fa-arrow-up"></i></button>
+                                <button onclick="confirmSiswaAction(${siswa.id}, 'retain', '${currentUser.username}')" class="text-gray-500 hover:text-gray-700 mr-2" title="Tinggal Kelas"><i class="fas fa-anchor"></i></button>
+                                <button onclick="editSiswa(${siswa.id})" class="text-blue-600 hover:text-blue-800 mr-2" title="Edit"><i class="fas fa-edit"></i></button>
+                                <button onclick="confirmDeleteSiswa(${siswa.id}, '${currentUser.username}')" class="text-red-600 hover:text-red-800" title="Hapus"><i class="fas fa-trash"></i></button>
                         `;
                 }
 
@@ -2265,20 +2113,20 @@
                     `;
             });
         }
-        
+
         function renderLulusanTable() {
             const tableBody = document.getElementById('lulusan-table-body');
             if (!tableBody) return;
             tableBody.innerHTML = '';
             if (!websiteContent.lulusan) websiteContent.lulusan = [];
             websiteContent.lulusan.sort((a,b) => b.tahunLulus - a.tahunLulus || a.nama.localeCompare(b.nama)).forEach((lulusan, index) => {
-                   const row = tableBody.insertRow();
-                   row.className = 'border-b';
-                   row.innerHTML = `
-                     <td class="p-3">${index + 1}</td>
-                     <td class="p-3">${lulusan.nama}</td>
-                     <td class="p-3">${lulusan.tahunLulus}</td>
-                   `;
+                    const row = tableBody.insertRow();
+                    row.className = 'border-b';
+                    row.innerHTML = `
+                           <td class="p-3">${index + 1}</td>
+                           <td class="p-3">${lulusan.nama}</td>
+                           <td class="p-3">${lulusan.tahunLulus}</td>
+                    `;
             });
         }
 
@@ -2295,8 +2143,8 @@
         function prosesKenaikanKelas() {
             const tahunLulus = new Date().getFullYear();
             const siswaBaru = [];
-               if (!websiteContent.lulusan) websiteContent.lulusan = [];
-            
+                if (!websiteContent.lulusan) websiteContent.lulusan = [];
+
             websiteContent.pesertaDidik.forEach(siswa => {
                 if (siswa.kelas === 6) {
                     websiteContent.lulusan.push({ ...siswa, tahunLulus });
@@ -2307,17 +2155,17 @@
             });
 
             websiteContent.pesertaDidik = siswaBaru;
-            
+
             renderSiswaManagementTable();
             renderAnggotaSiswaTable();
             renderLulusanTable();
             showNotification('Proses kenaikan kelas dan kelulusan berhasil diselesaikan.', 'success');
         }
-        
-        function confirmSiswaAction(id, action) {
+
+        function confirmSiswaAction(id, action, actor = 'admin') {
             const siswa = websiteContent.pesertaDidik.find(s => s.id === id);
             if (!siswa) return;
-            
+
             let title, message, yesText, yesClass, onConfirm;
 
             if (action === 'promote') {
@@ -2325,19 +2173,24 @@
                 message = `Naikkan <b>${siswa.nama}</b> ke kelas ${siswa.kelas + 1}?${siswa.kelas === 6 ? ' (Lulus)' : ''}`;
                 yesText = 'Ya, Naikkan';
                 yesClass = 'bg-green-600 hover:bg-green-700';
-                onConfirm = () => promoteSiswa(id);
-            } else { 
+                onConfirm = () => promoteSiswa(id, actor);
+            } else {
                 title = 'Konfirmasi Tinggal Kelas';
                 message = `Tetapkan <b>${siswa.nama}</b> untuk tinggal di kelas ${siswa.kelas}?`;
                 yesText = 'Ya, Tetapkan';
                 yesClass = 'bg-yellow-500 hover:bg-yellow-600';
-                onConfirm = () => showNotification(`${siswa.nama} tetap di kelas ${siswa.kelas}.`, 'success');
+                onConfirm = () => {
+                    showNotification(`${siswa.nama} tetap di kelas ${siswa.kelas}.`, 'info');
+                    if(actor !== 'admin') {
+                                logActivity({username: actor, action: `menetapkan ${siswa.nama} tinggal di kelas ${siswa.kelas}.`});
+                    }
+                }
             }
 
             openConfirmationModal({ title, message, yesText, yesClass, onConfirm });
         }
 
-        function promoteSiswa(id) {
+        function promoteSiswa(id, actor = 'admin') {
             const siswaIndex = websiteContent.pesertaDidik.findIndex(s => s.id === id);
             if (siswaIndex === -1) return;
 
@@ -2348,11 +2201,13 @@
                 websiteContent.lulusan.push({ ...siswa, tahunLulus: new Date().getFullYear() });
                 websiteContent.pesertaDidik.splice(siswaIndex, 1);
                 showNotification(`${siswa.nama} berhasil diluluskan.`, 'success');
+                if (actor !== 'admin') logActivity({username: actor, action: `meluluskan siswa: ${siswa.nama}`});
             } else {
                 siswa.kelas += 1;
                 showNotification(`${siswa.nama} berhasil dinaikkan ke kelas ${siswa.kelas}.`, 'success');
+                if (actor !== 'admin') logActivity({username: actor, action: `menaikkan kelas siswa: ${siswa.nama}`});
             }
-            
+
             renderSiswaManagementTable();
             renderAnggotaSiswaTable();
             renderLulusanTable();
@@ -2402,7 +2257,7 @@
             reader.onload = function(e) {
                 const text = e.target.result;
                 const rows = text.split('\n').filter(row => row.trim() !== '');
-                
+
                 if (rows.length <= 1) {
                     showNotification('File CSV kosong atau hanya berisi header.', 'error');
                     return;
@@ -2411,7 +2266,7 @@
                 const newSiswaList = [];
                 for (let i = 1; i < rows.length; i++) {
                     const cols = rows[i].split(',');
-                    if (cols.length >= 3) { 
+                    if (cols.length >= 3) {
                         const nama = cols[1].replace(/"/g, '').trim();
                         const kelas = parseInt(cols[2].trim());
 
@@ -2424,7 +2279,7 @@
                         }
                     }
                 }
-                
+
                 if (newSiswaList.length > 0) {
                     openConfirmationModal({
                         title: 'Konfirmasi Impor Data',
@@ -2443,7 +2298,7 @@
                     showNotification('Tidak ada data valid yang ditemukan dalam file CSV.', 'error');
                 }
             };
-            
+
             reader.onerror = function() {
                 showNotification('Gagal membaca file.', 'error');
             };
@@ -2451,7 +2306,7 @@
             reader.readAsText(file);
             event.target.value = '';
         }
-        
+
         function handleImportUser(event) {
             const file = event.target.files[0];
             if (!file) return;
@@ -2492,7 +2347,7 @@
                         }
                     }
                 }
-                
+
                 if (addedCount > 0) {
                     renderUserManagementTable();
                     renderStrukturOrganisasi();
@@ -2540,24 +2395,39 @@
             showNotification("Data pengguna berhasil diekspor!", 'success');
         }
 
-        function showNotification(message, type = 'success') {
+        function showNotification(message, type = 'success', duration = 3000) {
             const container = document.getElementById('notification-container');
             const notif = document.createElement('div');
-            const bgColor = type === 'success' ? 'var(--tw-green-500)' : 'var(--tw-red-500)';
-            const iconClass = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-triangle';
-            
-            notif.className = `notification text-white`; // Base classes
-            notif.style.backgroundColor = bgColor; // Apply background color via style for variable use
+            let bgColor, icon;
 
-            notif.innerHTML = `<i class="fas ${iconClass}"></i><span>${message}</span>`;
+            switch (type) {
+                case 'success':
+                    bgColor = 'bg-green-500';
+                    icon = 'fa-check-circle';
+                    break;
+                case 'error':
+                    bgColor = 'bg-red-500';
+                    icon = 'fa-exclamation-triangle';
+                    break;
+                case 'info':
+                    bgColor = 'bg-blue-500';
+                    icon = 'fa-info-circle';
+                    break;
+                default:
+                    bgColor = 'bg-gray-700';
+                    icon = 'fa-bell';
+            }
+
+            notif.className = `notification ${bgColor} text-white font-bold py-2 px-4 rounded-lg shadow-lg flex items-center gap-3`;
+            notif.innerHTML = `<i class="fas ${icon}"></i><span>${message}</span>`;
             container.appendChild(notif);
-            
-            // Auto-remove notification after 3 seconds
+
             setTimeout(() => {
                 notif.style.animation = 'slideOut 0.5s forwards';
-                setTimeout(() => notif.remove(), 500); // Remove from DOM after animation
-            }, 3000);
+                setTimeout(() => notif.remove(), 500);
+            }, duration);
         }
+
 
         function handlePostSubmit(e) {
             e.preventDefault();
@@ -2566,7 +2436,8 @@
                 title: document.getElementById('post-title').value,
                 content: document.getElementById('post-content').value,
                 fullContent: document.getElementById('post-full-content').value,
-                image: document.getElementById('post-image').value
+                image: document.getElementById('post-image').value,
+                author: currentUser.username
             };
             if (postIdInput.value) {
                 const index = posts.findIndex(p => p.id == postIdInput.value);
@@ -2646,26 +2517,8 @@
                         showNotification('Gambar telah dihapus', 'success');
                     };
                     break;
-                case 'spmbResult': // NEW CASE FOR SPMB RESULTS
-                    item = websiteContent.spmbResults.find(r => r.id === id);
-                    message = `Yakin ingin menghapus hasil pengumuman untuk "${item.name}" dengan nomor pendaftaran "${item.registrationNumber}"?`;
-                    onConfirm = () => {
-                        websiteContent.spmbResults = websiteContent.spmbResults.filter(r => r.id !== id);
-                        renderSpmbResultsTable();
-                        showNotification('Hasil pengumuman SPMB telah dihapus', 'success');
-                    };
-                    break;
-                 case 'spmbApplication': // NEW CASE FOR SPMB Applications
-                    item = websiteContent.spmbApplications.find(app => app.id === id);
-                    message = `Yakin ingin menghapus data pendaftar online "${item.nama}"?`;
-                    onConfirm = () => {
-                        websiteContent.spmbApplications = websiteContent.spmbApplications.filter(app => app.id !== id);
-                        renderSpmbApplications();
-                        showNotification('Data pendaftar online telah dihapus', 'success');
-                    };
-                    break;
             }
-            
+
             openConfirmationModal({
                 title: title,
                 message: message,
@@ -2679,11 +2532,11 @@
             const modal = document.getElementById('confirm-modal');
             document.getElementById('confirm-title').textContent = title;
             document.getElementById('confirm-message').innerHTML = message;
-            
+
             const confirmYesBtn = document.getElementById('confirm-yes-btn');
-            const newYesBtn = confirmYesBtn.cloneNode(true);
+            const newYesBtn = confirmYesBtn.cloneNode(true); // Clone to remove existing event listeners
             confirmYesBtn.parentNode.replaceChild(newYesBtn, confirmYesBtn);
-            
+
             newYesBtn.textContent = yesText;
             newYesBtn.className = `px-6 py-2 rounded-lg text-white ${yesClass}`;
             newYesBtn.onclick = () => {
@@ -2745,7 +2598,7 @@
                 slideInterval = setInterval(nextSlide, 5000);
             }
         }
-        
+
         function openModalById(modalId) {
             const modal = document.getElementById(modalId);
             const content = modal.querySelector('.modal-content');
@@ -2769,7 +2622,7 @@
                 if (e.target.id === modalId) closeModalById(modalId);
             });
         }
-        
+
         function showNewsModal(postId) {
             const ngModal = document.getElementById('news-gallery-modal');
             const ngModalContent = document.getElementById('news-gallery-modal-content');
@@ -2816,24 +2669,41 @@
                 messageEl.className = 'text-red-600';
             }
         }
-
+        
+        // REVISED: handleForgotPasswordRequest now uses logActivity
         function handleForgotPasswordRequest(e) {
             e.preventDefault();
             const username = document.getElementById('forgot-username').value;
             const messageEl = document.getElementById('forgot-message');
+            messageEl.textContent = ''; // Clear previous messages
+
             const isAnggotaUser = websiteContent.users.some(u => u.username === username && u.role === 'anggota');
 
             if (isAnggotaUser) {
-                if (!websiteContent.passwordResets.includes(username)) {
-                    websiteContent.passwordResets.push(username);
+                const existingRequest = websiteContent.activityLog.some(log => 
+                    log.type === 'password_reset' && 
+                    log.username === username && 
+                    !log.resolved
+                );
+
+                if (existingRequest) {
+                    messageEl.textContent = 'Permintaan reset untuk pengguna ini sudah ada dan belum diselesaikan.';
+                    messageEl.className = 'text-yellow-600';
+                } else {
+                    logActivity({
+                        username: username,
+                        action: `meminta reset password.`,
+                        type: 'password_reset',
+                        resolved: false // New property to track if reset is done
+                    });
+                    messageEl.textContent = 'Permintaan reset telah dikirim ke admin.';
+                    messageEl.className = 'text-green-600';
                 }
-                messageEl.textContent = 'Permintaan reset telah dikirim ke admin.';
-                messageEl.className = 'text-green-600';
-                updateResetNotification();
-                renderPasswordResets();
+                
+                // Close modal after a short delay
                 setTimeout(() => {
                     closeModalById('forgot-password-modal');
-                    messageEl.textContent = '';
+                    messageEl.textContent = ''; // Clear message after modal closes
                 }, 2000);
             } else {
                 messageEl.textContent = 'Username anggota tidak ditemukan.';
@@ -2841,37 +2711,61 @@
             }
         }
 
-        function resetAnggotaPasswordAdmin(usernameToReset) {
-            const newPasswordInput = document.getElementById(`new-password-for-${usernameToReset}`);
+        // NEW: Handles password reset from the activity log
+        function resetAnggotaPasswordFromLog(logId) {
+            const newPasswordInput = document.getElementById(`new-password-for-${logId}`);
             const newPassword = newPasswordInput ? newPasswordInput.value : '';
 
             if (!newPassword) {
                 showNotification('Silakan masukkan password baru untuk reset.', 'error');
                 return;
             }
-            const userToReset = websiteContent.users.find(u => u.username === usernameToReset);
+
+            const logEntry = websiteContent.activityLog.find(log => log.id === logId);
+            if (!logEntry) {
+                 showNotification('Gagal mereset: Log tidak ditemukan.', 'error');
+                 return;
+            }
+            
+            const userToReset = websiteContent.users.find(u => u.username === logEntry.username);
 
             if (userToReset) {
                 userToReset.password = newPassword;
-                websiteContent.passwordResets = websiteContent.passwordResets.filter(u => u !== usernameToReset);
-                renderPasswordResets();
-                renderUserManagementTable();
-                updateResetNotification();
-                showNotification(`Password untuk ${usernameToReset} berhasil direset.`, 'success');
+                logEntry.resolved = true;
+                logEntry.read = true; // Mark as read when resolved
+                logEntry.action = `Password untuk <b>${userToReset.username}</b> telah direset oleh admin.`; // Update action for log clarity
+                
+                renderActivityLog(); // Re-render to reflect changes
+                renderUserManagementTable(); // Update user table to show potentially new password (if revealed)
+                updateAdminNotificationBadge();
+                showNotification(`Password untuk ${userToReset.username} berhasil direset.`, 'success');
             } else {
                 showNotification('Gagal mereset password. Pengguna tidak ditemukan.', 'error');
             }
         }
+        
+        // NEW: Dismisses a password reset request without action
+        function dismissResetRequest(logId) {
+            const logEntry = websiteContent.activityLog.find(log => log.id === logId);
+            if (logEntry) {
+                logEntry.resolved = true;
+                logEntry.read = true; // Mark as read when dismissed
+                logEntry.action = `Permintaan reset password untuk <b>${logEntry.username}</b> diabaikan oleh admin.`;
+                renderActivityLog();
+                updateAdminNotificationBadge();
+                showNotification('Permintaan reset password berhasil diabaikan.', 'info');
+            }
+        }
+
 
         function handleLoginSuccess(username, isAdmin) {
             currentUser.username = username;
             currentUser.isAdmin = isAdmin;
 
-            const messageEl = document.getElementById('login-message');
-            messageEl.textContent = 'Login berhasil!';
-            messageEl.className = 'text-green-600';
+            showNotification("Login berhasil!", "success");
+
             updateUserStatus();
-            
+
             toggleMainContent(false);
 
             if (isAdmin) {
@@ -2884,13 +2778,13 @@
                 document.getElementById('anggota-panel').style.display = 'block';
                 document.getElementById('anggota-nav-link').classList.remove('hidden');
                 document.getElementById('mobile-anggota-nav-link').classList.remove('hidden');
-                showAnggotaTab('siswa'); 
+                showAnggotaTab('siswa');
                 renderAnggotaSiswaTable();
+                renderAnggotaPostsTable();
                 document.getElementById('anggota-panel').scrollIntoView({ behavior: 'smooth' });
             }
             setTimeout(() => {
                 closeModalById('login-modal');
-                messageEl.textContent = '';
             }, 1500);
         }
 
@@ -2905,17 +2799,19 @@
             currentUser.username = null;
             currentUser.isAdmin = false;
 
+            showNotification("Anda telah logout.", "info");
+
             const loginBtnHTML = `<button id="login-button" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 shadow-md flex items-center space-x-2"><i class="fas fa-sign-in-alt"></i><span>Login</span></button>`;
             document.getElementById('user-status').innerHTML = loginBtnHTML;
             document.getElementById('login-button').addEventListener('click', () => openModalById('login-modal'));
-            
+
             const mobileLoginBtnHTML = `<button id="mobile-login-button" class="w-full bg-blue-600 text-white px-4 py-2 rounded-full shadow-md">Login</button>`;
             document.getElementById('mobile-user-status').innerHTML = mobileLoginBtnHTML;
             document.getElementById('mobile-login-button').addEventListener('click', () => openModalById('login-modal'));
 
             ['admin-panel', 'anggota-panel'].forEach(id => document.getElementById(id).style.display = 'none');
             ['admin-nav-link', 'anggota-nav-link', 'mobile-admin-nav-link', 'mobile-anggota-nav-link'].forEach(id => document.getElementById(id).classList.add('hidden'));
-            
+
             toggleMainContent(true);
             document.getElementById('header').scrollIntoView({ behavior: 'smooth' });
         }
@@ -2926,6 +2822,17 @@
             const spmbMessage = document.getElementById('spmb-message');
             const spmbForm = document.getElementById('spmb-form');
             const formData = new FormData(spmbForm);
+            
+            websiteContent.spmbApplicants.push({
+                id: Date.now(),
+                nama: formData.get('nama'),
+                tempat_lahir: formData.get('Tempat_Lahir'),
+                tgl_lahir: formData.get('tgl_lahir'),
+                alamat: formData.get('alamat'),
+                no_hp: formData.get('no_hp'),
+                status: 'pending'
+            });
+
             spmbMessage.innerHTML = `<div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded" role="alert"><p class="font-bold">Pendaftaran Berhasil!</p><p>Terima kasih, <b>${formData.get('nama')}</b>. Data pendaftaran Anda telah kami terima.</p></div>`;
             spmbForm.reset();
             const spmbSubmitButton = document.getElementById('spmb-submit-button');
@@ -2936,296 +2843,174 @@
                 spmbMessage.innerHTML = '';
             }, 6000);
             spmbFormSubmitted = false;
-            renderSpmbApplications(); // Re-render applications list in admin panel
+            
+            renderSPMBApplicantsTable();
         }
 
-        // NEW FUNCTIONS FOR SPMB ANNOUNCEMENT FEATURE
-        function checkSpmbResult(e) {
-            e.preventDefault();
-            const regNumber = document.getElementById('spmb-reg-number').value.trim().toUpperCase();
-            const resultDisplay = document.getElementById('spmb-result-display');
-            resultDisplay.innerHTML = '';
+        function renderAnggotaPostsTable() {
+            const container = document.getElementById('anggota-posts-table-container');
+            if (!container || !currentUser.username) {
+                return;
+            }
 
-            const result = websiteContent.spmbResults.find(r => r.registrationNumber === regNumber);
+            const myPosts = posts.filter(p => p.author === currentUser.username);
 
-            if (result) {
-                let statusClass = '';
-                let statusIcon = '';
-                if (result.status === 'Diterima') {
-                    statusClass = 'text-green-700 bg-green-100';
-                    statusIcon = '<i class="fas fa-check-circle mr-2"></i>';
-                } else if (result.status === 'Tidak Lolos') {
-                    statusClass = 'text-red-700 bg-red-100';
-                    statusIcon = '<i class="fas fa-times-circle mr-2"></i>';
-                } else {
-                    statusClass = 'text-gray-700 bg-gray-100';
-                    statusIcon = '<i class="fas fa-info-circle mr-2"></i>';
-                }
-                resultDisplay.innerHTML = `
-                    <div class="${statusClass} p-4 rounded-lg shadow-md">
-                        <p class="text-xl font-bold mb-2">${statusIcon}Status: ${result.status}</p>
-                        <p>Nama: ${result.name}</p>
-                        <p>Nomor Pendaftaran: ${result.registrationNumber}</p>
-                        ${result.status === 'Diterima' ? '<p class="mt-2 text-sm">Selamat! Anda telah diterima. Silakan lanjutkan ke proses daftar ulang.</p>' : '<p class="mt-2 text-sm">Mohon maaf, Anda belum lolos seleksi. Tetap semangat!</p>'}
-                    </div>
-                `;
+            let tableHTML = `<table class="w-full text-left">
+                <thead><tr class="bg-gray-100"><th class="p-3">Judul</th><th class="p-3">Aksi</th></tr></thead><tbody>`;
+
+            if (myPosts.length > 0) {
+                myPosts.forEach(post => {
+                    tableHTML += `<tr class="border-b">
+                        <td class="p-3">${post.title}</td>
+                        <td class="p-3 whitespace-nowrap">
+                            <button onclick="editAnggotaPost(${post.id})" class="text-blue-600 hover:text-blue-800 mr-4" title="Edit"><i class="fas fa-edit"></i></button>
+                            <button onclick="confirmDeleteAnggotaPost(${post.id})" class="text-red-600 hover:text-red-800" title="Hapus"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>`;
+                });
             } else {
-                resultDisplay.innerHTML = `
-                    <div class="text-yellow-700 bg-yellow-100 p-4 rounded-lg shadow-md">
-                        <p class="font-bold"><i class="fas fa-exclamation-triangle mr-2"></i>Nomor pendaftaran tidak ditemukan atau belum diumumkan.</p>
-                        <p class="text-sm mt-1">Pastikan Anda memasukkan nomor yang benar.</p>
-                    </div>
-                `;
-            }
-        }
-
-        function renderSpmbResultsTable() {
-            const tableBody = document.getElementById('spmb-results-table-body');
-            if (!tableBody) return;
-            tableBody.innerHTML = '';
-
-            if (websiteContent.spmbResults.length === 0) {
-                tableBody.innerHTML = `<tr><td colspan="4" class="p-3 text-center italic">Belum ada hasil pengumuman SPMB.</td></tr>`;
-                return;
+                tableHTML += `<tr><td colspan="2" class="p-3 text-center italic">Anda belum membuat berita.</td></tr>`;
             }
 
-            websiteContent.spmbResults.sort((a, b) => a.registrationNumber.localeCompare(b.registrationNumber)).forEach(result => {
-                const row = tableBody.insertRow();
-                row.className = 'border-b';
-                let statusClass = '';
-                if (result.status === 'Diterima') {
-                    statusClass = 'bg-green-100 text-green-800';
-                } else if (result.status === 'Tidak Lolos') {
-                    statusClass = 'bg-red-100 text-red-800';
-                }
-                row.innerHTML = `
-                    <td class="p-3 font-mono">${result.registrationNumber}</td>
-                    <td class="p-3">${result.name}</td>
-                    <td class="p-3"><span class="px-2 py-1 text-xs rounded-full ${statusClass}">${result.status}</span></td>
-                    <td class="p-3 whitespace-nowrap">
-                        <button onclick="editSpmbResult(${result.id})" class="text-blue-600 hover:text-blue-800 mr-4" title="Edit"><i class="fas fa-edit"></i></button>
-                        <button onclick="confirmDelete(${result.id}, 'spmbResult')" class="text-red-600 hover:text-red-800" title="Hapus"><i class="fas fa-trash"></i></button>
-                    </td>
-                `;
-            });
+            tableHTML += `</tbody></table>`;
+            container.innerHTML = tableHTML;
         }
 
-        function handleAddSpmbResult(e) {
+        function handleAnggotaPostSubmit(e) {
             e.preventDefault();
-            const nama = document.getElementById('new-spmb-nama').value.trim();
-            const nomorPendaftaran = document.getElementById('new-spmb-nomor-pendaftaran').value.trim().toUpperCase();
-            const status = document.getElementById('new-spmb-status').value;
+            const id = document.getElementById('anggota-post-id').value;
+            const data = {
+                title: document.getElementById('anggota-post-title').value,
+                content: document.getElementById('anggota-post-content').value,
+                fullContent: document.getElementById('anggota-post-full-content').value,
+                image: document.getElementById('anggota-post-image').value,
+                author: currentUser.username
+            };
 
-            if (!nama || !nomorPendaftaran || !status) {
-                showNotification('Semua field harus diisi untuk menambah hasil.', 'error');
-                return;
-            }
+            const logMessage = id ? `memperbarui berita: "${data.title}"` : `menambahkan berita baru: "${data.title}"`;
+            logActivity({username: currentUser.username, action: logMessage});
 
-            const existingResult = websiteContent.spmbResults.find(r => r.registrationNumber === nomorPendaftaran);
-            if (existingResult) {
-                showNotification('Nomor pendaftaran ini sudah ada.', 'error');
-                return;
+            if (id) {
+                const index = posts.findIndex(p => p.id == id);
+                posts[index] = { id: parseInt(id), ...data };
+            } else {
+                data.id = Date.now();
+                posts.unshift(data);
             }
-            
-            const newId = Date.now();
-            websiteContent.spmbResults.push({ id: newId, registrationNumber: nomorPendaftaran, name: nama, status: status });
-            
-            document.getElementById('add-spmb-result-form').reset();
-            renderSpmbResultsTable();
-            showNotification('Hasil pengumuman SPMB berhasil ditambahkan.', 'success');
+            renderPosts();
+            resetAnggotaPostForm();
+            showNotification('Berita berhasil disimpan.', 'success');
         }
 
-        function editSpmbResult(id) {
-            const result = websiteContent.spmbResults.find(r => r.id === id);
-            if (!result) return;
+        function editAnggotaPost(id) {
+            const post = posts.find(p => p.id === id);
+            if(post.author !== currentUser.username) return;
+
+            document.getElementById('anggota-post-id').value = post.id;
+            document.getElementById('anggota-post-title').value = post.title;
+            document.getElementById('anggota-post-content').value = post.content;
+            document.getElementById('anggota-post-full-content').value = post.fullContent;
+            document.getElementById('anggota-post-image').value = post.image;
+            document.getElementById('anggota-form-title').textContent = `Edit Berita`;
+            document.getElementById('anggota-cancel-edit-btn').classList.remove('hidden');
+        }
+
+        function resetAnggotaPostForm() {
+            document.getElementById('anggota-post-form').reset();
+            document.getElementById('anggota-post-id').value = '';
+            document.getElementById('anggota-form-title').textContent = "Tambah/Edit Berita";
+            document.getElementById('anggota-cancel-edit-btn').classList.add('hidden');
+        }
+
+        function confirmDeleteAnggotaPost(id) {
+            const post = posts.find(p => p.id === id);
+                if(post.author !== currentUser.username) return;
 
             openConfirmationModal({
-                title: `Edit Hasil SPMB untuk ${result.name}`,
-                message: `
-                    <div class="space-y-4 text-left">
-                        <div>
-                            <label for="edit-spmb-nama" class="block text-sm font-medium text-gray-700">Nama Peserta Didik</label>
-                            <input type="text" id="edit-spmb-nama" value="${result.name}" class="mt-1 block w-full p-2 border rounded-md" required>
-                        </div>
-                        <div>
-                            <label for="edit-spmb-nomor-pendaftaran" class="block text-sm font-medium text-gray-700">Nomor Pendaftaran</label>
-                            <input type="text" id="edit-spmb-nomor-pendaftaran" value="${result.registrationNumber}" class="mt-1 block w-full p-2 border rounded-md" required>
-                        </div>
-                        <div>
-                            <label for="edit-spmb-status" class="block text-sm font-medium text-gray-700">Status</label>
-                            <select id="edit-spmb-status" class="mt-1 block w-full p-2 border rounded-md" required>
-                                <option value="Diterima" ${result.status === 'Diterima' ? 'selected' : ''}>Diterima</option>
-                                <option value="Tidak Lolos" ${result.status === 'Tidak Lolos' ? 'selected' : ''}>Tidak Lolos</option>
-                            </select>
-                        </div>
-                    </div>
-                `,
-                yesText: 'Simpan Perubahan',
-                yesClass: 'bg-blue-600 hover:bg-blue-700',
+                title: 'Hapus Berita',
+                message: `Yakin ingin menghapus berita "${post.title}"?`,
                 onConfirm: () => {
-                    const newName = document.getElementById('edit-spmb-nama').value.trim();
-                    const newRegNumber = document.getElementById('edit-spmb-nomor-pendaftaran').value.trim().toUpperCase();
-                    const newStatus = document.getElementById('edit-spmb-status').value;
-
-                    // Check for duplicate registration number in spmbResults, excluding the current item being edited
-                    const isDuplicateRegNumber = websiteContent.spmbResults.some(r => r.registrationNumber === newRegNumber && r.id !== id);
-                    if (isDuplicateRegNumber) {
-                        showNotification(`Nomor pendaftaran "${newRegNumber}" sudah ada di daftar pengumuman.`, 'error');
-                        return;
-                    }
-
-                    const targetResult = websiteContent.spmbResults.find(r => r.id === id);
-                    if (targetResult) {
-                        targetResult.name = newName;
-                        targetResult.registrationNumber = newRegNumber;
-                        targetResult.status = newStatus;
-                        renderSpmbResultsTable();
-                        showNotification('Hasil SPMB berhasil diperbarui.', 'success');
-                    }
+                    logActivity({username: currentUser.username, action: `menghapus berita: "${post.title}"`});
+                    posts = posts.filter(p => p.id !== id);
+                    renderPosts();
+                    showNotification('Berita telah dihapus', 'success');
                 }
             });
         }
+        
+        // REVISED: renderActivityLog now handles different log types and styling
+        function renderActivityLog() {
+            const container = document.getElementById('activity-log-container');
+            if(!container) return;
 
-        function renderSpmbApplications() {
-            const applicationsList = document.getElementById('spmb-applications-list');
-            if (!applicationsList) return;
-            applicationsList.innerHTML = '';
-
-            if (websiteContent.spmbApplications.length === 0) {
-                applicationsList.innerHTML = '<p class="text-gray-500 italic">Tidak ada pendaftar baru dari formulir online.</p>';
+            if (websiteContent.activityLog.length === 0) {
+                container.innerHTML = '<p class="text-gray-500 italic text-center">Tidak ada aktivitas terbaru.</p>';
                 return;
             }
 
-            websiteContent.spmbApplications.forEach(app => {
-                const div = document.createElement('div');
-                div.className = 'bg-gray-50 p-4 rounded-lg shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-2';
-                div.innerHTML = `
-                    <div>
-                        <p class="font-semibold">${app.nama}</p>
-                        <p class="text-sm text-gray-600">No. HP: ${app.noHp} | Status: ${app.status}</p>
-                    </div>
-                    <div class="flex flex-col sm:flex-row gap-2">
-                        <button onclick="processSpmbApplication(${app.id})" class="bg-purple-600 text-white px-3 py-2 rounded-lg text-sm hover:bg-purple-700 flex items-center justify-center gap-1">
-                            <i class="fas fa-cogs"></i> Proses
-                        </button>
-                        <button onclick="confirmDelete(${app.id}, 'spmbApplication')" class="bg-red-500 text-white px-3 py-2 rounded-lg text-sm hover:bg-red-600 flex items-center justify-center gap-1">
-                            <i class="fas fa-trash"></i> Hapus
-                        </button>
+            container.innerHTML = websiteContent.activityLog.map(log => {
+                const isUnread = !log.read;
+                const time = new Date(log.timestamp).toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short'});
+                let logContentHTML = '';
+                let borderColor = isUnread ? 'border-blue-500' : 'border-gray-300';
+                let bgColor = isUnread ? 'bg-blue-50 hover:bg-blue-100' : 'bg-gray-50 hover:bg-gray-100';
+
+                // Handle password reset request type
+                if (log.type === 'password_reset' && !log.resolved) {
+                    borderColor = 'border-red-500'; // Make password reset unread clearly visible
+                    bgColor = 'bg-red-50 hover:bg-red-100';
+                    logContentHTML = `
+                        <div class="mt-3 pt-3 border-t border-blue-200">
+                            <p class="text-sm font-semibold mb-2">Tindakan Diperlukan:</p>
+                            <div class="flex flex-wrap items-center gap-2">
+                                <input type="text" id="new-password-for-${log.id}" placeholder="Password Baru" class="w-full sm:w-auto flex-grow p-2 border rounded-md text-sm">
+                                <button onclick="resetAnggotaPasswordFromLog(${log.id})" class="bg-green-500 text-white px-3 py-2 rounded-lg text-sm hover:bg-green-600 flex-shrink-0">Reset</button>
+                                <button onclick="dismissResetRequest(${log.id})" class="bg-gray-400 text-white px-3 py-2 rounded-lg text-sm hover:bg-gray-500 flex-shrink-0">Abaikan</button>
+                            </div>
+                        </div>
+                    `;
+                } else if (log.resolved) {
+                    // Styles for resolved activities
+                    borderColor = 'border-green-300';
+                    bgColor = 'bg-green-50 hover:bg-green-100';
+                }
+
+                return `
+                    <div onclick="markActivityAsRead(${log.id})" class="p-4 rounded-lg cursor-pointer transition-colors ${bgColor} border-l-4 ${borderColor}">
+                        <div class="flex justify-between items-start text-sm">
+                            <p class="text-gray-800 pr-4"><b class="font-semibold">${log.username}</b> ${log.action}</p>
+                            <p class="text-gray-500 flex-shrink-0 ml-4 whitespace-nowrap">${time}</p>
+                        </div>
+                        ${logContentHTML}
                     </div>
                 `;
-                applicationsList.appendChild(div);
-            });
+            }).join('');
         }
 
-        function processSpmbApplication(appId) {
-            const app = websiteContent.spmbApplications.find(a => a.id === appId);
-            if (!app) return;
-
-            openConfirmationModal({
-                title: `Proses Pendaftaran ${app.nama}`,
-                message: `
-                    <div class="space-y-4 text-left">
-                        <p><b>Nama:</b> ${app.nama}</p>
-                        <p><b>Tempat/Tgl Lahir:</b> ${app.tempatLahir}, ${app.tanggalLahir}</p>
-                        <p><b>Alamat:</b> ${app.alamat}</p>
-                        <p><b>No. HP Orang Tua:</b> ${app.noHp}</p>
-                        <div class="mt-4">
-                            <label for="process-spmb-reg-number" class="block text-sm font-medium text-gray-700">Nomor Pendaftaran Resmi</label>
-                            <input type="text" id="process-spmb-reg-number" placeholder="Cth: SPMB2025001" class="mt-1 block w-full p-2 border rounded-md" required>
-                        </div>
-                        <div>
-                            <label for="process-spmb-status" class="block text-sm font-medium text-gray-700">Status Kelulusan</label>
-                            <select id="process-spmb-status" class="mt-1 block w-full p-2 border rounded-md" required>
-                                <option value="">Pilih Status</option>
-                                <option value="Diterima">Diterima</option>
-                                <option value="Tidak Lolos">Tidak Lolos</option>
-                            </select>
-                        </div>
-                    </div>
-                `,
-                yesText: 'Simpan Hasil & Hapus Pendaftar',
-                yesClass: 'bg-green-600 hover:bg-green-700',
-                onConfirm: () => {
-                    const regNumber = document.getElementById('process-spmb-reg-number').value.trim().toUpperCase();
-                    const status = document.getElementById('process-spmb-status').value;
-
-                    if (!regNumber || !status) {
-                        showNotification('Nomor pendaftaran dan status harus diisi.', 'error');
-                        return;
-                    }
-
-                    // Check for duplicate registration number in spmbResults
-                    const isDuplicateRegNumber = websiteContent.spmbResults.some(r => r.registrationNumber === regNumber);
-                    if (isDuplicateRegNumber) {
-                        showNotification(`Nomor pendaftaran "${regNumber}" sudah ada di daftar pengumuman.`, 'error');
-                        return;
-                    }
-
-                    websiteContent.spmbResults.push({
-                        id: Date.now(),
-                        registrationNumber: regNumber,
-                        name: app.nama,
-                        status: status
-                    });
-
-                    // Remove from spmbApplications
-                    websiteContent.spmbApplications = websiteContent.spmbApplications.filter(a => a.id !== appId);
-
-                    renderSpmbResultsTable();
-                    renderSpmbApplications();
-                    showNotification(`Pendaftaran ${app.nama} berhasil diproses sebagai ${status} dengan Nomor: ${regNumber}.`, 'success');
-                }
-            });
-        }
-
-        // --- UPDATED THEME TOGGLE FUNCTIONS ---
-
-        function applyTheme(theme) {
-            const html = document.documentElement; // Target the html element
-            const themeToggleIcon = document.getElementById('theme-toggle-icon');
-            const mobileThemeToggleIcon = document.getElementById('mobile-theme-toggle-icon');
-            const themeToggleText = document.querySelector('#theme-toggle span');
-
-            if (theme === 'dark') {
-                html.classList.add('dark');
-                if (themeToggleIcon) themeToggleIcon.classList.replace('fa-moon', 'fa-sun');
-                if (mobileThemeToggleIcon) mobileThemeToggleIcon.classList.replace('fa-moon', 'fa-sun');
-                if (themeToggleText) themeToggleText.textContent = 'Mode Terang';
-                document.querySelector('#theme-toggle').classList.add('dark-mode-button');
-                document.querySelector('#mobile-theme-toggle').classList.add('dark-mode-button');
-            } else {
-                html.classList.remove('dark');
-                if (themeToggleIcon) themeToggleIcon.classList.replace('fa-sun', 'fa-moon');
-                if (mobileThemeToggleIcon) mobileThemeToggleIcon.classList.replace('fa-sun', 'fa-moon');
-                if (themeToggleText) themeToggleText.textContent = 'Mode Gelap';
-                document.querySelector('#theme-toggle').classList.remove('dark-mode-button');
-                document.querySelector('#mobile-theme-toggle').classList.remove('dark-mode-button');
+        function markActivityAsRead(logId) {
+            const logItem = websiteContent.activityLog.find(log => log.id === logId);
+            // Don't mark as read if it's an unresolved password reset
+            if (logItem && !logItem.read && !(logItem.type === 'password_reset' && !logItem.resolved)) {
+                logItem.read = true;
+                renderActivityLog();
+                updateAdminNotificationBadge();
             }
         }
 
-        function toggleTheme() {
-            const html = document.documentElement; // Target the html element
-            if (html.classList.contains('dark')) {
-                localStorage.setItem('theme', 'light');
-                applyTheme('light');
-            } else {
-                localStorage.setItem('theme', 'dark');
-                applyTheme('dark');
-            }
+        function markAllActivitiesAsRead() {
+                // Mark all as read, except for unresolved password resets
+                websiteContent.activityLog.forEach(log => {
+                    if (!(log.type === 'password_reset' && !log.resolved)) {
+                        log.read = true;
+                    }
+                });
+                renderActivityLog();
+                updateAdminNotificationBadge();
+                showNotification('Semua aktivitas ditandai telah dibaca.', 'success');
         }
 
-        // Initialize theme on page load
+
         document.addEventListener('DOMContentLoaded', function() {
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme) {
-                applyTheme(savedTheme);
-            } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                // Check for user's system preference if no theme is saved
-                applyTheme('dark');
-            } else {
-                applyTheme('light'); // Default to light mode
-            }
-
             renderAllContent();
             initializeEventListeners();
         });
